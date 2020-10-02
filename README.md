@@ -32,4 +32,19 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 !['Project page wireframe'](https://i.imgur.com/PIyh8vG.png)
 
 ## Project Requirements
+### MVP
+- Working full stack application built with NodeJD, Postgres, Express, and EJS
+- MVC file structure
+- CRUD user model and CRUD posts model
+- Category-posts association (one-to-many) and user-posts association (one-to-many)
+- Deployed on Heroku
+- Basic sign up and login functionality
+- Documentation
 
+### Stretch Goals
+- User authentication and authorization, including password hashing
+- Many-to-many relationships with likes and comments models
+- Geotag functionality (including model + api calls to GoogleMaps (probably))
+- Bootstrap (or similar) CSS framework styling
+- CSS transitions for stylish menus
+- Sort projects by category and/or geotag
