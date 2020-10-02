@@ -21,6 +21,15 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 ## ERD
 !['CurioCorner ERD Pic'](https://i.imgur.com/RzbHREC.jpg)
 
+## Wireframes
+### Home page
+!['Home page wireframe'](https://i.imgur.com/YTYLyt6.png)
+
+### User page
+!['User page wireframe'](https://i.imgur.com/oVwQmee.png)
+
+### Project page
+!['Project page wireframe'](https://i.imgur.com/PIyh8vG.png)
 
 ## Project Requirements
 
