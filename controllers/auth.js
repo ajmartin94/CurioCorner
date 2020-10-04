@@ -67,7 +67,7 @@ const login = (req,res) => {
                     res.redirect("/");
 
                 } else {
-                    res.send("Incorrect Password")
+                    res.send("Incorrect Password");
                 }
             })
         }
