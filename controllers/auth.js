@@ -64,7 +64,7 @@ const login = (req,res) => {
                         }
                     );
                     res.cookie("jwt", token);
-                    res.redirect("/");
+                    res.redirect("/users/profile");
 
                 } else {
                     res.send("Incorrect Password");
