@@ -1,4 +1,5 @@
-const Auth = require('../models').Auth;
+require('dotenv').config;
+
 const Users = require('../models').Users;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -42,8 +43,42 @@ const signUp = (req,res) => {
     })
 }
 
+const login = (req,res) => {
+    Users.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    .then(foundUser => {
+        if(foundUser) {
+            bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
+                if(match) {
+                    const token = jwt.sign(
+                        {
+                            id: foundUser.id,
+                            username: foundUser.username
+                        },
+                        process.env.JWT_SECRET,
+                        {
+                            expiresIn: "1 day"
+                        }
+                    );
+                    res.cookie("jwt", token);
+                    res.redirect("/");
+
+                } else {
+                    res.send("Incorrect Password")
+                }
+            })
+        }
+    })
+}
+
+
+
 module.exports = {
     renderLogin,
     renderSignUp,
-    signUp
+    signUp,
+    login
 }
