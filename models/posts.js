@@ -15,6 +15,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'postId',
         otherKey:'categoryId'
       })
+      Posts.belongsToMany(models.Users,{
+        through:'Likes',
+        foreignKey:'postId',
+        otherKey:'userId'
+      })
+      Posts.belongsToMany(models.Users,{
+        through:'Comments',
+        foreignKey:'postId',
+        otherKey:'userId'
+      })
+      Posts.belongsTo(models.Users,{
+        foreignKey:'userId'
+      })
     }
   };
   Posts.init({
