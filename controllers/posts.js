@@ -1,3 +1,4 @@
+const Users = require('../models').Users;
 const Posts = require('../models').Posts;
 const Categories = require("../models").Category;
 
@@ -21,14 +22,23 @@ const newPost = (req,res) => {
     })
 }
 
-// const renderPost = (req,res) => {
-//     Posts.findByPk(req.params.id)
-//     .then(foundPost => {
-//         res.render('posts/postpage.ejs', {
-//             post: foundPost
-//         });
-//     })
-// }
+const renderPost = (req,res) => {
+    Users.findByPk(req.user.id)
+    .then(foundUser => {
+        Posts.findByPk(req.params.id, {
+            include: {
+                model: Users,
+                as: 'Likes'
+            }
+        })
+        .then(foundPost => {
+            res.render('posts/postpage.ejs', {
+                post: foundPost,
+                user: foundUser
+            });
+        })
+    })
+}
 
 const renderEditPost = (req,res) => {
     Posts.findByPk(req.params.id, {
@@ -70,6 +80,19 @@ const deletePost = (req,res) => {
     })
 }
 
+const likePost = (req,res) => {
+    Posts.findByPk(req.params.id)
+    .then(foundPost => {
+        Users.findByPk(req.user.id)
+        .then(foundUser => {
+            foundUser.addLike(foundPost);
+            res.redirect(`/view/${req.params.id}`);
+        })
+    })
+}
+
+
+
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
         req.body.selectedCategories = [`${req.body.selectedCategories}`];
@@ -85,8 +108,9 @@ function postBody(req, post) {
 module.exports = {
     renderNewPost,
     newPost,
-    // renderPost,
+    renderPost,
     renderEditPost,
     editPost,
-    deletePost
+    deletePost,
+    likePost
 }

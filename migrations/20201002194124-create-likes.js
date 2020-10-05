@@ -24,6 +24,13 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date()
       }
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['userId','postId']
+        }
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

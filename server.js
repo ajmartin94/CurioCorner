@@ -10,13 +10,18 @@ const Posts = require("./models").Posts
 app.use(cookieParser());
 
 const verifyToken = (req,res,next) => {
+    if(!req.query.require) {
+        req.user = null;
+        next();
+    }
+
     let token = req.cookies.jwt;
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
         if(err || !decodedUser){
             return res.redirect("/auth/login");
         }
-
+            
         req.user = decodedUser;
 
         next();
