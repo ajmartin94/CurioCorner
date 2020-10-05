@@ -5,6 +5,12 @@
     Title: <input type="text" name="title">
     Content: <input type="text" name="content">
     Image Link: <input type="text" name="image">
+    <br>Category: <br>
+    <%for (let i = 0; i<categories.length; i++) { %>
+        <label>
+            <input type = "checkbox" name = "selectedCategories" value = "<%=categories[i].id%>"> <%=categories[i].name%>
+        </label>
+        <% } %>
     <input type="submit" value="Submit">
 </form>
 

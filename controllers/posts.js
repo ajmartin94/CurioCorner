@@ -1,13 +1,28 @@
 const Posts = require('../models').Posts;
+const Categories = require("../models").Category;
 
 const renderNewPost = (req,res) => {
-    res.render('posts/new.ejs');
+    Categories.findAll()
+    .then(allCategories => {
+        res.render('posts/new.ejs', {
+            categories: allCategories
+        });
+    })
+    
 }
 
 const newPost = (req,res) => {
     req.body.userId = req.user.id;
+    console.log(req.body)
     Posts.create(req.body)
     .then(newPost => {
+        req.body.selectedCategories.forEach(id => {
+            Categories.findByPk(id)
+            .then(found => {
+                newPost.addCategory(found)
+            })
+        })
+        
         res.redirect(`/view/${newPost.id}`)
     })
 }
