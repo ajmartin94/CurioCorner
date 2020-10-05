@@ -5,9 +5,9 @@ const ctrl = require('../controllers');
 router.get("/profile", ctrl.users.renderProfile);
 
 
-router.put("/:index", ctrl.users.updateProfile);
+router.put("/profile", ctrl.users.updateProfile);
 
 
-router.delete("/:index", ctrl.users.deleteUser);
+router.delete("/profile", ctrl.users.deleteUser);
 
 module.exports = router;
