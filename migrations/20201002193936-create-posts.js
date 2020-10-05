@@ -18,9 +18,6 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      categoryId: {
-        type: Sequelize.INTEGER
-      },
       geotagId: {
         type: Sequelize.INTEGER
       },

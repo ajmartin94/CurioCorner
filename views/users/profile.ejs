@@ -1,5 +1,7 @@
 <%- include("../partials/header.ejs") %>
 <h1>Welcome <%=user.name%>!</h1>
+<img src='<%=user.profileImg%>' />
+Bio: <p><%=user.bio%></p>
 
 <h2>Update Profile</h2>
 <form action = "/users/profile?_method=PUT" method = "POST">
