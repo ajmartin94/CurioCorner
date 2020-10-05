@@ -10,9 +10,10 @@ const Posts = require("./models").Posts
 app.use(cookieParser());
 
 const verifyToken = (req,res,next) => {
-    if(!req.query.require) {
+    if(req.query.require === 'false') {
         req.user = null;
         next();
+        return;
     }
 
     let token = req.cookies.jwt;

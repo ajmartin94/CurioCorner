@@ -14,7 +14,7 @@
     <ul>
         <%for(let i = 0; i<posts.length; i++) {%>
             <li>
-                <a href = "view/<%=posts[i].id%>"><%=posts[i].title%></a>
+                <a href = "posts/<%=posts[i].id%>?require=false"><%=posts[i].title%></a>
             </li>
             <% } %>
     </ul>
