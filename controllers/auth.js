@@ -4,6 +4,7 @@ const Users = require('../models').Users;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
 const renderLogin = (req,res) => {
     res.render('login.ejs')
 }
@@ -77,11 +78,16 @@ const login = (req,res) => {
     })
 }
 
+const logout = (req,res) => {
+    res.clearCookie("jwt");
+    res.redirect("/")
+}
 
 
 module.exports = {
     renderLogin,
     renderSignUp,
     signUp,
-    login
+    login,
+    logout
 }
