@@ -8,7 +8,7 @@ const newPost = (req,res) => {
     req.body.userId = req.user.id;
     Posts.create(req.body)
     .then(newPost => {
-        res.redirect(`/posts/${newPost.id}`)
+        res.redirect(`/view/${newPost.id}`)
     })
 }
 
@@ -36,7 +36,7 @@ const editPost = (req,res) => {
         returning: true
     })
     .then(edittedPost => {
-        res.redirect(`/posts/${req.params.id}`);
+        res.redirect(`/view/${req.params.id}`);
     })
 }
 
