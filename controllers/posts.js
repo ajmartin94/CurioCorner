@@ -13,15 +13,9 @@ const renderNewPost = (req,res) => {
 
 const newPost = (req,res) => {
     req.body.userId = req.user.id;
-    console.log(req.body)
     Posts.create(req.body)
     .then(newPost => {
-        req.body.selectedCategories.forEach(id => {
-            Categories.findByPk(id)
-            .then(found => {
-                newPost.addCategory(found)
-            })
-        })
+        postBody(req, newPost)
         
         res.redirect(`/view/${newPost.id}`)
     })
@@ -37,11 +31,19 @@ const newPost = (req,res) => {
 // }
 
 const renderEditPost = (req,res) => {
-    Posts.findByPk(req.params.id)
+    Posts.findByPk(req.params.id, {
+        include: [Categories]
+    })
     .then(foundPost => {
-        res.render('posts/editPost.ejs', {
-            post: foundPost
+        console.log(foundPost)
+        Categories.findAll()
+        .then(allCategories => {
+            res.render('posts/editPost.ejs', {
+                post: foundPost,
+                categories: allCategories
+            })
         })
+        
     })
 }
 
@@ -51,7 +53,11 @@ const editPost = (req,res) => {
         returning: true
     })
     .then(edittedPost => {
-        res.redirect(`/view/${req.params.id}`);
+        Posts.findByPk(req.params.id)
+        .then(foundEditPost => {
+            postBody(req, foundEditPost)
+            res.redirect(`/view/${req.params.id}`);
+        })
     })
 }
 
@@ -61,6 +67,18 @@ const deletePost = (req,res) => {
     })
     .then(() => {
         res.redirect('/');
+    })
+}
+
+function postBody(req, post) {
+    if(req.body.selectedCategories.length < 2) {
+        req.body.selectedCategories = [`${req.body.selectedCategories}`];
+    }
+    req.body.selectedCategories.forEach(id => {
+        Categories.findByPk(id)
+        .then(found => {
+            post.addCategory(found)
+        })
     })
 }
 

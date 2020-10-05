@@ -2,9 +2,19 @@
 <h1>Edit Post</h1>
 
 <form action='/posts/<%=post.id%>/edit?_method=PUT' method='POST'>
-    <input type="text" name="title" value='<%= post.title %>'>
-    <input type="text" name="content" value='<%= post.content %>'>
-    <input type="text" name="image" value='<%= post.image %>'>
+    Title: <input type="text" name="title" value='<%= post.title %>'><br><br>
+    Content: <input type="text" name="content" value='<%= post.content %>'><br><br>
+    Image Link:<input type="text" name="image" value='<%= post.image %>'><br><br>
+    Category:<br><br>
+    <%categories.forEach(category => { %>
+        <label>
+            <input type = "checkbox" name = "selectedCategories" value = "<%=category.id%>"
+            <%if(post.Categories.filter(filterCat => filterCat.id === category.id).length > 0 ) { %>
+                    checked
+                    <% } %>
+            > <%=category.name%>
+        </label>
+        <% }) %>
     <input type="submit" value="Submit Edits">
 </form>
 
