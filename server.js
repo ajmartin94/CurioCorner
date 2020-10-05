@@ -30,7 +30,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 app.use('/users', verifyToken, routes.users);
-app.use('/posts',routes.posts);
+app.use('/posts', verifyToken, routes.posts);
 app.use('/auth',routes.auth);
 
 

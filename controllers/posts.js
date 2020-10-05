@@ -5,6 +5,7 @@ const renderNewPost = (req,res) => {
 }
 
 const newPost = (req,res) => {
+    req.body.userId = req.user.id;
     Posts.create(req.body)
     .then(newPost => {
         res.redirect(`/posts/${newPost.id}`)
