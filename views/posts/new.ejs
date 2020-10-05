@@ -1,0 +1,11 @@
+<%- include("../partials/header.ejs") %>
+<h1>Make a New Post</h1>
+
+<form action='/posts/new' method='POST'>
+    Title: <input type="text" name="title">
+    Content: <input type="text" name="content">
+    Image Link: <input type="text" name="image">
+    <input type="submit" value="Submit">
+</form>
+
+<%- include("../partials/footer.ejs") %>
