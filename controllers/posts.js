@@ -18,25 +18,31 @@ const newPost = (req,res) => {
     .then(newPost => {
         postBody(req, newPost)
         
-        res.redirect(`/view/${newPost.id}`)
+        res.redirect(`/posts/${newPost.id}?require=false`)
     })
 }
 
 const renderPost = (req,res) => {
-    Users.findByPk(req.user.id)
-    .then(foundUser => {
-        Posts.findByPk(req.params.id, {
-            include: {
-                model: Users,
-                as: 'Likes'
-            }
-        })
-        .then(foundPost => {
+    Posts.findByPk(req.params.id, {
+        include: {
+            model: Users,
+            as: 'Like'
+        }
+    })
+    .then(foundPost => {
+        if(req.user) {
+            Users.findByPk(req.user.id)
+            .then(foundUser => {
+                res.render('posts/postpage.ejs', {
+                    post: foundPost,
+                    user: foundUser
+                })
+            })
+        } else {
             res.render('posts/postpage.ejs', {
-                post: foundPost,
-                user: foundUser
-            });
-        })
+                post: foundPost
+            })
+        }
     })
 }
 
@@ -66,7 +72,7 @@ const editPost = (req,res) => {
         Posts.findByPk(req.params.id)
         .then(foundEditPost => {
             postBody(req, foundEditPost)
-            res.redirect(`/view/${req.params.id}`);
+            res.redirect(`/posts/${req.params.id}?require=false`);
         })
     })
 }
@@ -86,7 +92,7 @@ const likePost = (req,res) => {
         Users.findByPk(req.user.id)
         .then(foundUser => {
             foundUser.addLike(foundPost);
-            res.redirect(`/view/${req.params.id}`);
+            res.redirect(`/posts/${req.params.id}?require=false`);
         })
     })
 }

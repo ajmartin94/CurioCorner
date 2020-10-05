@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       })
       Posts.belongsToMany(models.Users,{
         through:'Likes',
-        as: 'Likes',
+        as: 'Like',
         foreignKey:'postId',
         otherKey:'userId'
       })
       Posts.belongsToMany(models.Users,{
         through:'Comments',
-        as:'Comments',
+        as:'Comment',
         foreignKey:'postId',
         otherKey:'userId'
       })
