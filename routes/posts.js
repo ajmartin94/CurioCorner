@@ -5,7 +5,6 @@ const ctrl = require('../controllers');
 router.get('/new',ctrl.posts.renderNewPost);
 router.post('/new',ctrl.posts.newPost);
 
-router.get('/:id', ctrl.posts.renderPost);
 
 router.get('/:id/edit',ctrl.posts.renderEditPost);
 router.put('/:id/edit',ctrl.posts.editPost);

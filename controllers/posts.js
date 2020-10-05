@@ -12,14 +12,14 @@ const newPost = (req,res) => {
     })
 }
 
-const renderPost = (req,res) => {
-    Posts.findByPk(req.params.id)
-    .then(foundPost => {
-        res.render('posts/postpage.ejs', {
-            post: foundPost
-        });
-    })
-}
+// const renderPost = (req,res) => {
+//     Posts.findByPk(req.params.id)
+//     .then(foundPost => {
+//         res.render('posts/postpage.ejs', {
+//             post: foundPost
+//         });
+//     })
+// }
 
 const renderEditPost = (req,res) => {
     Posts.findByPk(req.params.id)
@@ -52,7 +52,7 @@ const deletePost = (req,res) => {
 module.exports = {
     renderNewPost,
     newPost,
-    renderPost,
+    // renderPost,
     renderEditPost,
     editPost,
     deletePost
