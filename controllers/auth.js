@@ -37,7 +37,7 @@ const signUp = (req,res) => {
                 );
 
                 res.cookie('jwt',token);
-                res.redirect('/')
+                res.redirect('/users/profile')
             })
         })
     })
