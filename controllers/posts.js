@@ -20,8 +20,39 @@ const renderPost = (req,res) => {
     })
 }
 
+const renderEditPost = (req,res) => {
+    Posts.findByPk(req.params.id)
+    .then(foundPost => {
+        res.render('posts/editPost.ejs', {
+            post: foundPost
+        })
+    })
+}
+
+const editPost = (req,res) => {
+    Posts.update(req.body, {
+        where: {id: req.params.id},
+        returning: true
+    })
+    .then(edittedPost => {
+        res.redirect(`/posts/${req.params.id}`);
+    })
+}
+
+const deletePost = (req,res) => {
+    Posts.destroy({
+        where: {id: req.params.id}
+    })
+    .then(() => {
+        res.redirect('/');
+    })
+}
+
 module.exports = {
     renderNewPost,
     newPost,
-    renderPost
+    renderPost,
+    renderEditPost,
+    editPost,
+    deletePost
 }
