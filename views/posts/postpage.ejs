@@ -7,7 +7,20 @@
     <input type="submit" value="Like">
 </form>
 
-<p> <%= post.content %> </p>
+<p> <%= post.content %> </p><br><br>
+
+<form action='/posts/<%=post.id%>/comment' method='POST'>
+    Comment Text: <input type="text" name="text">
+    <input type="submit" value="Submit">
+</form><br><br>
+
+<ul>
+    <% post.Comment.forEach(comment => { %>
+        <li><%=comment.Comments.text%> - <%=comment.username%></li>
+    <% }) %>
+</ul>
+
+
 <a href='/posts/<%=post.id%>/edit'>Edit Post</a><br>
 <form action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
     <input type="submit" value="Delete Post">

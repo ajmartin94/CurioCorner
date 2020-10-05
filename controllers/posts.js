@@ -1,6 +1,7 @@
 const Users = require('../models').Users;
 const Posts = require('../models').Posts;
 const Categories = require("../models").Category;
+const Comments = require('../models').Comments;
 
 const renderNewPost = (req,res) => {
     Categories.findAll()
@@ -24,12 +25,19 @@ const newPost = (req,res) => {
 
 const renderPost = (req,res) => {
     Posts.findByPk(req.params.id, {
-        include: {
-            model: Users,
-            as: 'Like'
-        }
+        include: [
+            {
+                model: Users,
+                as: 'Like'
+            },
+            {
+                model: Users,
+                as: 'Comment'
+            }
+        ]
     })
     .then(foundPost => {
+        console.log(JSON.stringify(foundPost,null,2))
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
@@ -97,6 +105,19 @@ const likePost = (req,res) => {
     })
 }
 
+const addComment = (req,res) => {
+    Comments.create(
+        {
+            userId: req.user.id,
+            postId: req.params.id,
+            text: req.body.text
+        }
+    )
+    .then(newComment => {
+        res.redirect(`/posts/${req.params.id}?require=false`);
+    })
+}
+
 
 
 function postBody(req, post) {
@@ -106,7 +127,7 @@ function postBody(req, post) {
     req.body.selectedCategories.forEach(id => {
         Categories.findByPk(id)
         .then(found => {
-            post.addCategory(found)
+            post.addCategory(found);
         })
     })
 }
@@ -118,5 +139,6 @@ module.exports = {
     renderEditPost,
     editPost,
     deletePost,
-    likePost
+    likePost,
+    addComment
 }
