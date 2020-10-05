@@ -14,7 +14,7 @@ const verifyToken = (req,res,next) => {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
         if(err || !decodedUser){
-            return res.send("Error in JWT");
+            return res.redirect("/auth/login");
         }
 
         req.user = decodedUser;
