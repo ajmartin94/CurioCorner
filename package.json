@@ -19,10 +19,12 @@
   "homepage": "https://github.com/ajmartin94/CurioCorner#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "js": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",

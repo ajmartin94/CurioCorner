@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('jquery');
 
 const express = require('express');
 const app = express();
@@ -7,6 +8,8 @@ const methodOverride = require('method-override');
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const Posts = require("./models").Posts
+const path = require('path');
+
 app.use(cookieParser());
 
 const verifyToken = (req,res,next) => {
@@ -42,7 +45,11 @@ const verifyToken = (req,res,next) => {
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended: true}));
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+
+app.use('/css', express.static('node_modules/bootstrap/dist/css'))
+app.use('/js', express.static('node_modules/bootstrap/dist/js'))
+app.use('/js', express.static('node_modules/jquery/dist'))
 
 app.use('/users', verifyToken, routes.users);
 app.use('/posts', verifyToken, routes.posts);
