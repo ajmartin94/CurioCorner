@@ -1,6 +1,8 @@
 <%- include("../partials/header.ejs") %>
 <h1>Welcome <%=user.name%>!</h1>
-<img src='<%=user.profileImg%>' />
+<img src='<%=user.profileImg%>' alt = "<%=user.username%>'s profile picture" height = 250 />
+<br>
+<br>
 Bio: <p><%=user.bio%></p>
 
 <h2>Update Profile</h2>
