@@ -5,7 +5,9 @@
 <img src=<%= post.image %>>
 <form action='/posts/<%=post.id%>/like' method='POST'>
     <input type="submit" value="Like">
-</form>
+</form> 
+Likes: <%=post.Like.length%>
+
 
 <p> <%= post.content %> </p><br><br>
 
