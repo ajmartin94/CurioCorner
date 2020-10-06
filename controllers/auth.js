@@ -47,7 +47,7 @@ const signUp = (req,res) => {
                 );
 
                 res.cookie('jwt',token);
-                res.redirect('/users/profile')
+                res.redirect(`/users/profile/${newUser.username}`)
             })
         })
     })
@@ -74,7 +74,7 @@ const login = (req,res) => {
                         }
                     );
                     res.cookie("jwt", token);
-                    res.redirect("/users/profile");
+                    res.redirect(`/users/profile/${foundUser.username}`);
 
                 } else {
                     res.redirect("/auth/login?valid=0");

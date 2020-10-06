@@ -1,21 +1,38 @@
 <%- include("../partials/header.ejs") %>
-<h1>Welcome <%=user.name%>!</h1>
-<img src='<%=user.profileImg%>' />
-Bio: <p><%=user.bio%></p>
+<%- include("../partials/navbar.ejs") %>
 
-<h2>Update Profile</h2>
-<form action = "/users/profile?_method=PUT" method = "POST" enctype= "multipart/form-data">
-    Name: <input type="text" name="name" value = "<%=user.name%>"><br><br>
-    Username: <input type="text" name="username" value = "<%=user.username%>"><br><br>
-    Password: <input type="password" name="password" value = "<%=user.password%>"><br><br>    
-    Profile Picture: <input type = "file" accept = "image/*" name = "profileImg"/>
-    <br><br><input type="submit" value="Update Profile"/>
-</form>
+<div class='container d-flex justify-content-start'>
+    <div class='card' style='max-width: 400px;'>
+        <div class='row no-gutters'>
+            <div class='col-md-4'>
+                <img src='<%=user.profileImg%>' class='card-img' alt='user profile picture'> 
+            </div>
+            <div class='col-md-8'>
+                <div class='card-body'>
+                    <h5 class='card-title'><%=user.name%></h5>
+                    <p class='card-text'><%=user.bio%></p>
+                    <% if(viewing.id === user.id) { %>
+                        <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='container d-flex flex-column'>
+        <h3>Created Projects:</h3>
+        <div class='container d-flex justify-content-center'>
+            <% user.Posts.forEach(post => { %>
+                <div class='card m-3' style='width: 18rem;'>
+                    <img src='<%=post.image%>' class='card-img-top' alt='project image' />
+                    <div class='card-body'>
+                        <h5 class='card-title'><%= post.title %></h5>
+                        <p class='card-text'>Example text for what should describe the project</p>
+                        <a href='/posts/<%=post.id%>?require=false' class='btn btn-primary'>Go to project!</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
 
-<br><br>
-<form onsubmit = 'return confirm("Do you want to delete your profile?")' action = "/users/profile?_method=DELETE" method = "POST">
-    <input type = "submit" value = "Delete Profile" />
-</form>
-
-<a href = "/">Go Home</a>
 <%- include("../partials/footer.ejs") %>

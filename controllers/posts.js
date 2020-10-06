@@ -50,10 +50,9 @@ const renderPost = (req,res) => {
                 })
             })
         } else {
-            let newUser = {id:0};
             res.render('posts/postpage.ejs', {
                 post: foundPost,
-                user: newUser
+                user: null
             })
         }
     })
