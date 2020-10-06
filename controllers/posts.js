@@ -50,8 +50,10 @@ const renderPost = (req,res) => {
                 })
             })
         } else {
+            console.log('im over here')
             res.render('posts/postpage.ejs', {
-                post: foundPost
+                post: foundPost,
+                user: null
             })
         }
     })
