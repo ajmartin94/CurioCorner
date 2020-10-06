@@ -25,7 +25,7 @@ const verifyToken = (req,res,next) => {
 
             req.user = decodedUser;
         })
-        
+        return;
     }
 
     let token = req.cookies.jwt;
