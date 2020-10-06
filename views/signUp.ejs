@@ -3,12 +3,12 @@
 
 
 <h1>Signup Page</h1>
-<form action='/auth/signUp' method='POST'>
+<form action='/auth/signUp' method='POST' enctype= "multipart/form-data">
     Name: <input type="text" name="name"><br><br>
     Username: <input type="text" name="username"><br><br>
     Password: <input type="password" name="password"><br><br>
     Bio: <input type="text" name="bio"><br><br>
-    Profile Image: <input type="text" name="profileImg"><br><br>
+    Profile Picture: <input type = "file" accept = "image/*" name = "profileImg"/><br><br>
     <input type="submit" value="Submit">
 </form>
 
