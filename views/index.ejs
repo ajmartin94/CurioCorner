@@ -3,7 +3,7 @@
     <div class='container-fluid d-flex justify-content-center'>
         <% posts.forEach(post => { %>
             <div class='card m-3' style='width: 18rem;'>
-                <img src='post.image' class='card-img-top' alt='project image' />
+                <img src='<%=post.image%>' class='card-img-top' alt='project image' />
                 <div class='card-body'>
                     <h5 class='card-title'><%= post.title %></h5>
                     <p class='card-text'>Example text for what should describe the project</p>
@@ -12,12 +12,5 @@
             </div>
         <% }) %>
     </div>
-    <ul>
-        <%for(let i = 0; i<posts.length; i++) {%>
-            <li>
-                <a href = "posts/<%=posts[i].id%>?require=false"><%=posts[i].title%></a>
-            </li>
-            <% } %>
-    </ul>
 
     <%- include("./partials/footer.ejs") %> 

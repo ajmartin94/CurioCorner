@@ -2,28 +2,29 @@ const Users = require("../models").Users;
 const Posts = require('../models').Posts;
 
 const renderProfile = (req, res) => {
-    Users.findOne({
-        where:{
-            username: req.user.username
-        },
-        include: [Posts]
-    })
-    .then( foundUser => {
-        res.render("users/profile.ejs", {
-            user: foundUser
+    if(req.user) {
+        Users.findOne({
+            where:{
+                username: req.params.username
+            },
+            include: [Posts]
         })
-
-    })
-    
+        .then( profileUser => {
+            Users.findByPk(req.user.id)
+            .then( viewingUser => {
+                res.render("users/profile.ejs", {
+                    user: profileUser,
+                    viewing: viewingUser
+                })
+            })
+        })
+    }
 }
 
 const renderEditProfile = (req,res) => {
-    Users.findOne({
-        where:{
-            id: req.user.id
-        }
-    })
+    Users.findByPk(req.user.id)
     .then( foundUser => {
+        console.log(foundUser);
         res.render('users/editProfile.ejs', {
             user: foundUser
         })
@@ -42,7 +43,7 @@ const updateProfile = (req, res) => {
             }
         })
         .then( foundUser => {
-            res.redirect("/users/profile")
+            res.redirect(`/users/profile/${foundUser.username}`)
         })
     })
     
