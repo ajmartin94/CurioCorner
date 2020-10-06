@@ -25,7 +25,7 @@ const verifyToken = (req,res,next) => {
 
             req.user = decodedUser;
         })
-        
+
         next();
         return;
     }
@@ -52,6 +52,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/css', express.static('node_modules/bootstrap/dist/css'))
 app.use('/js', express.static('node_modules/bootstrap/dist/js'))
 app.use('/js', express.static('node_modules/jquery/dist'))
+app.use('/images',express.static('public/images'))
 
 app.use('/users', verifyToken, routes.users);
 app.use('/posts', verifyToken, routes.posts);

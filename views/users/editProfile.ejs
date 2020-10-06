@@ -1,0 +1,17 @@
+<%- include("../partials/header.ejs") %>
+<%- include("../partials/navbar.ejs") %>
+
+<h2>Update Profile</h2>
+<form action = "/users/profile?_method=PUT" method = "POST">
+    Name: <input type="text" name="name" value = "<%=user.name%>"><br><br>
+    Username: <input type="text" name="username" value = "<%=user.username%>"><br><br>
+    Password: <input type="password" name="password" value = "<%=user.password%>"><br><br>
+    Profile Picture: <input type="text" name="profileImg" value = "<%=user.profileImg%>">
+    <input type="submit" value="Update Profile"/>
+</form>
+<br><br>
+<form onsubmit = 'return confirm("Do you want to delete your profile?")' action = "/users/profile?_method=DELETE" method = "POST">
+    <input type = "submit" value = "Delete Profile" />
+</form>
+
+<%- include("../partials/footer.ejs") %>

@@ -9,7 +9,6 @@ const renderProfile = (req, res) => {
         include: [Posts]
     })
     .then( foundUser => {
-        console.log(foundUser);
         res.render("users/profile.ejs", {
             user: foundUser
         })
@@ -18,6 +17,18 @@ const renderProfile = (req, res) => {
     
 }
 
+const renderEditProfile = (req,res) => {
+    Users.findOne({
+        where:{
+            id: req.user.id
+        }
+    })
+    .then( foundUser => {
+        res.render('users/editProfile.ejs', {
+            user: foundUser
+        })
+    })
+}
 
 const updateProfile = (req, res) => {
     Users.update(req.body, {
@@ -49,5 +60,6 @@ const deleteUser = (req,res) => {
 module.exports = {
     renderProfile,
     updateProfile,
-    deleteUser
+    deleteUser,
+    renderEditProfile
 }
