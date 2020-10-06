@@ -6,7 +6,8 @@ const renderProfile = (req, res) => {
             username: req.user.username
         }
     })
-    .then( foundUser => {
+    .then(foundUser => {
+
         res.render("users/profile.ejs", {
             user: foundUser
         })
@@ -16,7 +17,12 @@ const renderProfile = (req, res) => {
 }
 
 
+
 const updateProfile = (req, res) => {
+
+    if(req.file) {
+        req.body.profileImg = `/images/profile/${req.file.filename}`
+    }
     Users.update(req.body, {
         where: {id: req.user.id},
         returning: true
@@ -43,8 +49,18 @@ const deleteUser = (req,res) => {
     })
 }
 
+const image = (req, res) => {
+    if (req.file.name === '') {
+        req.body.profileImg = `/images/kindpng_248253.png`;
+    } else {
+        const filename = req.file.filename;
+        req.body.profileImg = `/images/${filename}`;
+    }
+}
+
 module.exports = {
     renderProfile,
     updateProfile,
-    deleteUser
+    deleteUser, 
+    image
 }

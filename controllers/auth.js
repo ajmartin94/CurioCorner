@@ -16,9 +16,13 @@ const renderSignUp = (req,res) => {
 }
 
 const signUp = (req,res) => {
-    if (req.body.profileImg === '') {
-        req.body.profileImg = `http://localhost:${process.env.PORT}/images/kindpng_248253.png`;
+    if (req.file.name === '') {
+        req.body.profileImg = `/images/profile/kindpng_248253.png`;
+    } else {
+        const filename = req.file.filename;
+        req.body.profileImg = `/images/profile/${filename}`;
     }
+    
     bcrypt.genSalt(10,(err,salt) => {
         if(err) {
             return res.send(err);
