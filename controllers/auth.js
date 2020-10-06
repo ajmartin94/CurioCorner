@@ -6,7 +6,9 @@ const bcrypt = require('bcryptjs');
 
 
 const renderLogin = (req,res) => {
-    res.render('login.ejs')
+    res.render('login.ejs', {
+        correct: req.query.valid
+    })
 }
 
 const renderSignUp = (req,res) => {
@@ -54,7 +56,7 @@ const login = (req,res) => {
         }
     })
     .then(foundUser => {
-        if(foundUser) {
+        if(foundUser !== null) {
             bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
                 if(match) {
                     const token = jwt.sign(
@@ -71,10 +73,16 @@ const login = (req,res) => {
                     res.redirect("/users/profile");
 
                 } else {
-                    res.send("Incorrect Password");
+                    res.redirect("/auth/login?valid=0");
                 }
             })
+        } else {
+            res.redirect("/auth/login?valid=0")
         }
+    })
+    .catch(err => {
+        console.log(err)
+        res.send("OMG WE FINALLY GOT HERE")
     })
 }
 

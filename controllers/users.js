@@ -7,10 +7,10 @@ const renderProfile = (req, res) => {
         }
     })
     .then( foundUser => {
-        console.log(foundUser)
         res.render("users/profile.ejs", {
             user: foundUser
         })
+
     })
     
 }

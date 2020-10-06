@@ -18,13 +18,13 @@ Likes: <%=post.Like.length%>
 
 <ul>
     <% post.Comment.forEach(comment => { %>
-        <li><%=comment.Comments.text%> - <%=comment.username%></li>
+        <li><%=comment.Comments.text%> -- <%=comment.username%></li>
     <% }) %>
 </ul>
 
 
 <a href='/posts/<%=post.id%>/edit'>Edit Post</a><br>
-<form action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
+<form onsubmit = 'return confirm("Do you want to delete this post?")' action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
     <input type="submit" value="Delete Post">
 </form>
 
