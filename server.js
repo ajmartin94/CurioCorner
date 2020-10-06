@@ -11,9 +11,18 @@ app.use(cookieParser());
 
 const verifyToken = (req,res,next) => {
     if(req.query.require === 'false') {
-        req.user = null;
-        next();
-        return;
+        let token = req.cookies.jwt;
+
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
+            if(err || !decodedUser) {
+                req.user = null;
+                next();
+                return;
+            }
+
+            req.user = decodedUser;
+        })
+        
     }
 
     let token = req.cookies.jwt;

@@ -33,6 +33,9 @@ const renderPost = (req,res) => {
             {
                 model: Users,
                 as: 'Comment'
+            },
+            {
+                model: Users
             }
         ]
     })
@@ -40,6 +43,7 @@ const renderPost = (req,res) => {
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
+                console.log(JSON.stringify(foundPost,null,2))
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser
