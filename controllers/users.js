@@ -1,12 +1,15 @@
 const Users = require("../models").Users;
+const Posts = require('../models').Posts;
 
 const renderProfile = (req, res) => {
     Users.findOne({
         where:{
             username: req.user.username
-        }
+        },
+        include: [Posts]
     })
     .then( foundUser => {
+        console.log(foundUser);
         res.render("users/profile.ejs", {
             user: foundUser
         })

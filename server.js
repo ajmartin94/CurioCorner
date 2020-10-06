@@ -25,6 +25,8 @@ const verifyToken = (req,res,next) => {
 
             req.user = decodedUser;
         })
+        
+        next();
         return;
     }
 
