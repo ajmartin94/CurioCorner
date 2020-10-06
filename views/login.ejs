@@ -5,7 +5,13 @@
 <form action='/auth/login' method='POST'>
     Username: <input type="text" name="username"><br><br>
     Password: <input type="password" name="password"><br><br>
+    <%if(correct === "0") {%>
+        Sorry, that account either doesn't exist or the password is incorrect. Please try again!
+        <br>
+        <br>
+        <% } %>
     <input type="submit" value="Submit">
+
 </form>
 
 <a href = "/auth/signUp">Not a User? Sign Up!</a>
