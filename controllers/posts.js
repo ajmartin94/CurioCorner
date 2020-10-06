@@ -37,7 +37,6 @@ const renderPost = (req,res) => {
         ]
     })
     .then(foundPost => {
-        console.log(JSON.stringify(foundPost,null,2))
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
@@ -59,7 +58,6 @@ const renderEditPost = (req,res) => {
         include: [Categories]
     })
     .then(foundPost => {
-        console.log(foundPost)
         Categories.findAll()
         .then(allCategories => {
             res.render('posts/editPost.ejs', {
@@ -124,6 +122,15 @@ function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
         req.body.selectedCategories = [`${req.body.selectedCategories}`];
     }
+    // This block removes all the categories on the post
+    Categories.findAll()
+    .then(allCategories => {
+        allCategories.forEach(category => {
+            post.removeCategory(category)
+        })
+    })
+
+    // This block adds all the categories the user selected
     req.body.selectedCategories.forEach(id => {
         Categories.findByPk(id)
         .then(found => {
