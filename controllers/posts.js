@@ -194,6 +194,19 @@ const renderCategory = (req,res) => {
     })
 }
 
+const likeComment = (req,res) => {
+    Comments.findByPk(req.params.commentid)
+    .then(foundComment => {
+        console.log(foundComment)
+        Users.findByPk(req.user.id)
+        .then(user => {
+            foundComment.addCommentLike(user);
+
+            res.redirect(`/posts/${req.params.postid}?require=false`)
+        })
+    })
+}
+
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
         req.body.selectedCategories = [`${req.body.selectedCategories}`];
@@ -225,5 +238,6 @@ module.exports = {
     likePost,
     addComment,
     renderSearch,
-    renderCategory
+    renderCategory,
+    likeComment
 }

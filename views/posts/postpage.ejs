@@ -32,11 +32,14 @@
         <h3>Comments</h3>
         <ul class = "list-group w-75 mx-auto text-left">
             <% post.Comments.forEach(comment => { %>
+                <li class = "list-group-item"><%=comment.text%> <br>--
                 <%if(!comment.User) {%> 
-                    <li class = "list-group-item"><%=comment.text%> <br>-- A Former Creator </li> 
-                    <% } else { %>
-                    <li class = "list-group-item"><%=comment.text%> <br>-- <a href="/users/profile/<%=comment.User.username%>?require=false"><%=comment.User.username%></a> </li>
-            <% }}) %>
+                    A Former Creator 
+                <% } else { %>
+                     <a href="/users/profile/<%=comment.User.username%>?require=false"><%=comment.User.username%></a>
+                <% } %>
+                <br><a href='/posts/<%=post.id%>/likecomment/<%=comment.id%>'>Like</a> | No of Likes </li> 
+        <% }) %>
         </ul>
         <% if(user) { %>
             <% if(post.userId === user.id) {%>
