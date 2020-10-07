@@ -6,9 +6,18 @@ const renderProfile = (req, res) => {
         where:{
             username: req.params.username
         },
-        include: [Posts]
+        include: [
+            {
+                model:Posts
+            },
+            {  
+                model: Users,
+                as: 'follower'
+            }
+        ]
     })
     .then(profileUser => {
+        console.log(profileUser)
         if(req.user) {
             Users.findByPk(req.user.id)
             .then( viewingUser => {
