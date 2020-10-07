@@ -2,10 +2,10 @@
     <%- include("./partials/navbar.ejs") %> 
     <div class='container-fluid flex-wrap d-flex justify-content-center'>
         <% posts.forEach(post => { %>
-            <div class='card m-3' style='min-width: 100px;'>
-                <img src='<%=post.image%>' class='card-img-top' alt='project image' />
+            <div class='card m-3' style='min-width: 100px; width: 18rem;'>
+                <img src='<%=post.image%>' class='card-img-top' alt='project image' height="250px"/>
                 <div class='card-body'>
-                    <h5 class='card-title'><%= post.title %></h5>
+                    <h2 class='card-title h5'><%= post.title %></h2>
                     <p class='card-text'>Example text for what should describe the project</p>
                     <a href='/posts/<%=post.id%>?require=false' class='btn btn-primary'>Go to project!</a>
                 </div>
