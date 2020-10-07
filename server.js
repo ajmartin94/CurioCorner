@@ -11,6 +11,8 @@ const Posts = require("./models").Posts
 const path = require('path');
 const multer = require("multer");
 
+const Category = require('./models').Category;
+
 const uploadProf = multer({dest: __dirname + "/public/images/profile/" });
 
 app.use(cookieParser());
@@ -46,6 +48,14 @@ const verifyToken = (req,res,next) => {
     }
 };
 
+const findCategories = (req,res,next) => {
+    Category.findAll()
+    .then(allCategories => {
+        req.categories = allCategories;
+        next();
+    })
+}
+
 
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended: true}));
@@ -60,9 +70,9 @@ app.use("/public", express.static("public"));
 
 app.use(express.static('public'));
 
-app.use('/users', verifyToken, routes.users);
-app.use('/posts', verifyToken, routes.posts);
-app.use('/auth',routes.auth);
+app.use('/users', verifyToken, findCategories, routes.users);
+app.use('/posts', verifyToken, findCategories, routes.posts);
+app.use('/auth', findCategories, routes.auth);
 app.use("/view", routes.view)
 
 app.get('/',(req,res,next) => {
@@ -77,11 +87,17 @@ app.get('/',(req,res,next) => {
         req.user = decodedUser;
     })
 
+    Category.findAll()
+    .then(allCategories => {
+        req.categories = allCategories;
+    })
+
     Posts.findAll()
     .then(allPosts => {
         res.render('index.ejs', {
             posts: allPosts,
-            user: req.user
+            user: req.user,
+            allCategories: req.categories
         })
     })
     

@@ -5,13 +5,9 @@ const Comments = require('../models').Comments;
 const { Op } = require('sequelize');
 
 const renderNewPost = (req,res) => {
-    Categories.findAll()
-    .then(allCategories => {
-        res.render('posts/new.ejs', {
-            categories: allCategories
-        });
-    })
-    
+    res.render('posts/new.ejs', {
+        categories: req.categories
+    });
 }
 
 const newPost = (req,res) => {
@@ -53,13 +49,15 @@ const renderPost = (req,res) => {
             .then(foundUser => {
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
-                    user: foundUser
+                    user: foundUser,
+                    allCategories: req.categories
                 })
             })
         } else {
             res.render('posts/postpage.ejs', {
                 post: foundPost,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
@@ -70,14 +68,10 @@ const renderEditPost = (req,res) => {
         include: [Categories]
     })
     .then(foundPost => {
-        Categories.findAll()
-        .then(allCategories => {
-            res.render('posts/editPost.ejs', {
-                post: foundPost,
-                categories: allCategories
-            })
+        res.render('posts/editPost.ejs', {
+            post: foundPost,
+            categories: req.categories
         })
-        
     })
 }
 
@@ -149,13 +143,15 @@ const renderSearch = (req,res) => {
             .then(foundUser => {
                 res.render('index.ejs', {
                     posts: foundPosts,
-                    user: foundUser
+                    user: foundUser,
+                    allCategories: req.categories
                 })
             })
         } else {
             res.render('index.ejs', {
                 posts: foundPosts,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
