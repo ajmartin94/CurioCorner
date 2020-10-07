@@ -2,6 +2,7 @@ const Users = require('../models').Users;
 const Posts = require('../models').Posts;
 const Categories = require("../models").Category;
 const Comments = require('../models').Comments;
+const { Op } = require('sequelize');
 
 const renderNewPost = (req,res) => {
     Categories.findAll()
@@ -50,7 +51,6 @@ const renderPost = (req,res) => {
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
-                console.log(JSON.stringify(foundPost.Comments,null,2))
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser
@@ -132,6 +132,33 @@ const addComment = (req,res) => {
     })
 }
 
+const renderSearch = (req,res) => {
+    let searchCrit = '%'+req.body.searchCriteria.replace(' ','%')+'%';
+    console.log(searchCrit);
+    Posts.findAll({
+        where: {
+            [Op.or]: [
+                {title: {[Op.iLike]: searchCrit}},
+                {content: {[Op.iLike]: searchCrit}}
+            ]
+        }
+    })
+    .then(foundPosts => {
+        if(req.user) {
+            Users.findByPk(req.user.id)
+            .then(foundUser => {
+                res.render('posts/search.ejs', {
+                    posts: foundPosts,
+                    user: foundUser
+                })
+            })
+        }
+        res.render('posts/search.ejs', {
+            posts: foundPosts,
+            user: null
+        })
+    })
+}
 
 
 function postBody(req, post) {
@@ -163,5 +190,6 @@ module.exports = {
     editPost,
     deletePost,
     likePost,
-    addComment
+    addComment,
+    renderSearch
 }

@@ -18,4 +18,6 @@ router.post('/:id/like',ctrl.posts.likePost);
 
 router.post('/:id/comment',ctrl.posts.addComment);
 
+router.post('/search',ctrl.posts.renderSearch);
+
 module.exports = router;
