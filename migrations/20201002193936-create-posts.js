@@ -12,6 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      titleBlurb: {
+        type: Sequelize.STRING
+      },
       content: {
         type: Sequelize.STRING
       },
