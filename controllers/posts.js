@@ -147,16 +147,17 @@ const renderSearch = (req,res) => {
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
-                res.render('posts/search.ejs', {
+                res.render('index.ejs', {
                     posts: foundPosts,
                     user: foundUser
                 })
             })
+        } else {
+            res.render('index.ejs', {
+                posts: foundPosts,
+                user: null
+            })
         }
-        res.render('posts/search.ejs', {
-            posts: foundPosts,
-            user: null
-        })
     })
 }
 
