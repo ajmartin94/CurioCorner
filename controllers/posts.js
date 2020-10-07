@@ -2,16 +2,13 @@ const Users = require('../models').Users;
 const Posts = require('../models').Posts;
 const Categories = require("../models").Category;
 const Comments = require('../models').Comments;
+const PostsCategory = require('../models').PostsCategory;
 const { Op } = require('sequelize');
 
 const renderNewPost = (req,res) => {
-    Categories.findAll()
-    .then(allCategories => {
-        res.render('posts/new.ejs', {
-            categories: allCategories
-        });
-    })
-    
+    res.render('posts/new.ejs', {
+        categories: req.categories
+    });
 }
 
 const newPost = (req,res) => {
@@ -53,13 +50,15 @@ const renderPost = (req,res) => {
             .then(foundUser => {
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
-                    user: foundUser
+                    user: foundUser,
+                    allCategories: req.categories
                 })
             })
         } else {
             res.render('posts/postpage.ejs', {
                 post: foundPost,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
@@ -70,14 +69,10 @@ const renderEditPost = (req,res) => {
         include: [Categories]
     })
     .then(foundPost => {
-        Categories.findAll()
-        .then(allCategories => {
-            res.render('posts/editPost.ejs', {
-                post: foundPost,
-                categories: allCategories
-            })
+        res.render('posts/editPost.ejs', {
+            post: foundPost,
+            allCategories: req.categories
         })
-        
     })
 }
 
@@ -149,18 +144,54 @@ const renderSearch = (req,res) => {
             .then(foundUser => {
                 res.render('index.ejs', {
                     posts: foundPosts,
-                    user: foundUser
+                    user: foundUser,
+                    allCategories: req.categories
                 })
             })
         } else {
             res.render('index.ejs', {
                 posts: foundPosts,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
 }
 
+const renderCategory = (req,res) => {
+    Categories.findOne({
+        where: {
+            name: req.params.catName
+        }
+    })
+    .then(desiredCategory => {
+        Categories.findOne({
+            where: {
+                id: desiredCategory.id
+            },
+            include: [Posts]
+        })
+        .then(foundCategory => {
+            console.log(JSON.stringify(foundCategory,null,2));
+            if(req.user) {
+                Users.findByPk(req.user.id)
+                .then(foundUser => {
+                    res.render('index.ejs', {
+                        posts: foundCategory.Posts,
+                        user: foundUser,
+                        allCategories: req.categories
+                    })
+                })
+            } else {
+                res.render('index.ejs', {
+                    posts: foundCategory.Posts,
+                    user: null,
+                    allCategories: req.categories
+                })
+            }
+        })
+    })
+}
 
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
@@ -192,5 +223,6 @@ module.exports = {
     deletePost,
     likePost,
     addComment,
-    renderSearch
+    renderSearch,
+    renderCategory
 }

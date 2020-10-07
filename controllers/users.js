@@ -14,7 +14,8 @@ const renderProfile = (req, res) => {
             .then( viewingUser => {
                 res.render("users/profile.ejs", {
                     user: profileUser,
-                    viewing: viewingUser
+                    viewing: viewingUser,
+                    allCategories: req.categories
                 })
             })
         })
@@ -26,7 +27,8 @@ const renderEditProfile = (req,res) => {
     .then( foundUser => {
         console.log(foundUser);
         res.render('users/editProfile.ejs', {
-            user: foundUser
+            user: foundUser,
+            allCategories: req.categories
         })
     })
 }

@@ -7,12 +7,15 @@ const bcrypt = require('bcryptjs');
 
 const renderLogin = (req,res) => {
     res.render('login.ejs', {
-        correct: req.query.valid
+        correct: req.query.valid,
+        allCategories: req.categories
     })
 }
 
 const renderSignUp = (req,res) => {
-    res.render('signUp.ejs')
+    res.render('signUp.ejs', {
+        allCategories: req.categories
+    })
 }
 
 const signUp = (req,res) => {
