@@ -2,6 +2,7 @@ const Users = require('../models').Users;
 const Posts = require('../models').Posts;
 const Categories = require("../models").Category;
 const Comments = require('../models').Comments;
+const PostsCategory = require('../models').PostsCategory;
 const { Op } = require('sequelize');
 
 const renderNewPost = (req,res) => {
@@ -70,7 +71,7 @@ const renderEditPost = (req,res) => {
     .then(foundPost => {
         res.render('posts/editPost.ejs', {
             post: foundPost,
-            categories: req.categories
+            allCategories: req.categories
         })
     })
 }
@@ -157,6 +158,40 @@ const renderSearch = (req,res) => {
     })
 }
 
+const renderCategory = (req,res) => {
+    Categories.findOne({
+        where: {
+            name: req.params.catName
+        }
+    })
+    .then(desiredCategory => {
+        Categories.findOne({
+            where: {
+                id: desiredCategory.id
+            },
+            include: [Posts]
+        })
+        .then(foundCategory => {
+            console.log(JSON.stringify(foundCategory,null,2));
+            if(req.user) {
+                Users.findByPk(req.user.id)
+                .then(foundUser => {
+                    res.render('index.ejs', {
+                        posts: foundCategory.Posts,
+                        user: foundUser,
+                        allCategories: req.categories
+                    })
+                })
+            } else {
+                res.render('index.ejs', {
+                    posts: foundCategory.Posts,
+                    user: null,
+                    allCategories: req.categories
+                })
+            }
+        })
+    })
+}
 
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
@@ -188,5 +223,6 @@ module.exports = {
     deletePost,
     likePost,
     addComment,
-    renderSearch
+    renderSearch,
+    renderCategory
 }

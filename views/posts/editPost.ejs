@@ -8,7 +8,7 @@
     Content: <input type="text" name="content" value='<%= post.content %>'><br><br>
     Image:<input type="file" name="image" accept = "image/*"/><br><br>
     Category:<br><br>
-    <%categories.forEach(category => { %>
+    <%allCategories.forEach(category => { %>
         <label>
             <input type = "checkbox" name = "selectedCategories" value = "<%=category.id%>"
             <%if(post.Categories.filter(filterCat => filterCat.id === category.id).length > 0 ) { %>
