@@ -58,6 +58,7 @@ const deleteUser = (req,res) => {
         where: {id: req.user.id}
     })
     .then(() => {
+        res.clearCookie("jwt");
         res.redirect("/");
     })
 }
