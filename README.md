@@ -48,3 +48,5 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Bootstrap (or similar) CSS framework styling
 - CSS transitions for stylish menus
 - Sort projects by category and/or geotag
+
+google maps API key: AIzaSyAkI6D2lfATOlMrdchg5S9lOQ2bXauOXeg

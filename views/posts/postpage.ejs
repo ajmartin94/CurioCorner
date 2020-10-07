@@ -31,4 +31,24 @@ Likes: <%=post.Like.length%>
 <% }} %>
 <a href = "/">Go Home</a>
 
+<div id="map" style='height:500px; width: 50%'></div>
+
+<script>
+    var map;
+    function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+    });
+
+    new google.maps.Marker({
+        position: {lat: -34.397, lng: 150.644},
+        map,
+        title: 'This marker'
+    })
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI6D2lfATOlMrdchg5S9lOQ2bXauOXeg&callback=initMap" async defer></script>
+
 <%- include("../partials/footer.ejs") %>
