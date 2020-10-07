@@ -133,11 +133,13 @@ const addComment = (req,res) => {
 }
 
 const renderSearch = (req,res) => {
+    let searchCrit = '%'+req.body.searchCriteria.replace(' ','%')+'%';
+    console.log(searchCrit);
     Posts.findAll({
         where: {
             [Op.or]: [
-                {title: {[Op.like]: '%'+req.body.searchCriteria+'%'}},
-                {content: {[Op.like]: '%'+req.body.searchCriteria+'%'}}
+                {title: {[Op.iLike]: searchCrit}},
+                {content: {[Op.iLike]: searchCrit}}
             ]
         }
     })
@@ -153,7 +155,7 @@ const renderSearch = (req,res) => {
         }
         res.render('posts/search.ejs', {
             posts: foundPosts,
-            user: req.user
+            user: null
         })
     })
 }
