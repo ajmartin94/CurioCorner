@@ -6,7 +6,7 @@
 <h3>Created By: 
     <%if(post.User){ %>
         <%=post.User.username%><% } else { %> 
-            Redacted
+            A Former Creator
             <% } %>
 </h3>
 <form action='/posts/<%=post.id%>/like' method='POST'>
@@ -25,7 +25,7 @@ Likes: <%=post.Like.length%>
 <ul>
     <% post.Comments.forEach(comment => { %>
         <%if(!comment.User) {%> 
-            <li><%=comment.text%> -- Former User </li> 
+            <li><%=comment.text%> -- A Former Creator </li> 
             <% } else { %>
             <li><%=comment.text%> -- <%=comment.User.username%> </li>
     <% }}) %>
