@@ -24,12 +24,13 @@ const verifyToken = (req,res,next) => {
                 req.user = null;
                 next();
                 return;
+            } else {
+                req.user = decodedUser;
+                next();
             }
 
-            req.user = decodedUser;
+            
         })
-
-        next();
         return;
     }
     
