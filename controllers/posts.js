@@ -27,6 +27,7 @@ const newPost = (req,res) => {
         res.redirect(`/posts/${newPost.id}?require=false`)
     })
 }
+//https://stackoverflow.com/questions/49395973/how-to-return-non-unique-join-table-records-in-sequelize
 
 const renderPost = (req,res) => {
     Posts.findByPk(req.params.id, {
@@ -36,11 +37,12 @@ const renderPost = (req,res) => {
                 as: 'Like'
             },
             {
-                model: Users,
-                as: 'Comment'
+                model: Comments,
+                include: [{model: Users}]
             },
             {
-                model: Users
+                model: Users,
+                
             }
         ]
     })
@@ -48,7 +50,7 @@ const renderPost = (req,res) => {
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
-                console.log(JSON.stringify(foundPost,null,2))
+                console.log(JSON.stringify(foundPost.Comments,null,2))
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser

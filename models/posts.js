@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'postId',
         otherKey:'userId'
       })
-      Posts.belongsToMany(models.Users,{
-        through:'Comments',
-        as:'Comment',
+      Posts.hasMany(models.Comments,{
+        // through:'Comments',
+        // as:'Comment',
         foreignKey:'postId',
-        otherKey:'userId'
+        // otherKey:'userId'
       })
       Posts.belongsTo(models.Users,{
         foreignKey:'userId'
