@@ -12,8 +12,8 @@
                 <li class='nav-item'><a class='nav-link' href="#">Contact</a></li>
             </ul>
             
-            <form class='form-inline'>
-                <input class='form-control mr-sm-2' type='search' placeholder='Search for Project' aria-label='Search'>
+            <form class='form-inline' action='/posts/search?require=false' method='POST'>
+                <input class='form-control mr-sm-2' type='search' placeholder='Search for Project' aria-label='Search' name='searchCriteria'>
                 <button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Search</button>
             </form>
             <ul class='navbar-nav'>

@@ -27,24 +27,23 @@ const verifyToken = (req,res,next) => {
             } else {
                 req.user = decodedUser;
                 next();
+                return;
             }  
         })
+    } else {
+        let token = req.cookies.jwt;
 
-        return;
-    } 
-    
-    let token = req.cookies.jwt;
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
+            if(err || !decodedUser){
+                return res.redirect("/auth/login");
+            }
+                
+            req.user = decodedUser;
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
-        if(err || !decodedUser){
-            return res.redirect("/auth/login");
-        }
-            
-        req.user = decodedUser;
-
-        next();
-    })
-    
+            next();
+            return;
+        })
+    }
 };
 
 
