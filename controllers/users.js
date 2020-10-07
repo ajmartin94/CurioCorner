@@ -2,23 +2,28 @@ const Users = require("../models").Users;
 const Posts = require('../models').Posts;
 
 const renderProfile = (req, res) => {
-    if(req.user) {
         Users.findOne({
-            where:{
-                username: req.params.username
-            },
-            include: [Posts]
-        })
-        .then( profileUser => {
+        where:{
+            username: req.params.username
+        },
+        include: [Posts]
+    })
+    .then(profileUser => {
+        if(req.user) {
             Users.findByPk(req.user.id)
             .then( viewingUser => {
                 res.render("users/profile.ejs", {
-                    user: profileUser,
-                    viewing: viewingUser
+                    profileUser: profileUser,
+                    user: viewingUser
                 })
             })
-        })
-    }
+        } else {
+            res.render("users/profile.ejs", {
+                profileUser: profileUser,
+                user: null
+            })
+        }
+    })
 }
 
 const renderEditProfile = (req,res) => {
