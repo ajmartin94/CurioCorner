@@ -21,7 +21,8 @@ const renderProfile = (req, res) => {
         } else {
             res.render("users/profile.ejs", {
                 profileUser: profileUser,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
