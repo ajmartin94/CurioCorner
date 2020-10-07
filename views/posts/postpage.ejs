@@ -31,7 +31,7 @@
     <div class = "container-fluid text-center">
         <h3>Comments</h3>
         <ul class = "list-group w-75 mx-auto text-left">
-            <% post.Comments.forEach(comment => { %>
+            <% post.Comments.sort((a,b) => b.CommentLike.length - a.CommentLike.length).forEach(comment => { %>
                 <li class = "list-group-item"><%=comment.text%> <br>--
                 <%if(!comment.User) {%> 
                     A Former Creator 
