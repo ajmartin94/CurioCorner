@@ -1,8 +1,8 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %>
 <div class="container-fluid d-flex flex-wrap">
-    <div class='container d-flex justify-content-start'>
-        <div class='card' style='width: 400px;'>
+    <div class='container- d-flex justify-content-center'>
+        <div class='card' style='width: 100%;'>
             <div class='row no-gutters'>
                 <div class='col-md-4 align-self-center'>
                     <img src='<%=user.profileImg%>' class='card-img' alt='user profile picture'> 
@@ -19,59 +19,59 @@
             </div>
         </div>
     </div>
-        <div class='container d-flex flex-column flex-wrap' style = "height:90vh">
-            <h2 class = "h3">Created Projects:</h2>
-            <div id="projectCarousel" class='carousel slide' data-ride = "carousel" style="height:80vh;">
-                <div class = "carousel-inner h-100">
-                    <%if(user.Posts.length === 0) {%>
-                        <div class = "carousel-item active h-100">
-                            <img src = "/images/posts/4669d7bc7d07350d798f474d230cbd90" class = "d-block h-100 mx-auto" alt = "project image">
+    <div class='container-md d-flex flex-column flex-wrap'>
+        <h2 class = "h3">Created Projects:</h2>
+        <div id="projectCarousel" class='carousel slide' data-ride = "carousel" style="height:60vh;">
+            <div class = "carousel-inner h-100">
+                <%if(user.Posts.length === 0) {%>
+                    <div class = "carousel-item active h-100">
+                        <img src = "/images/posts/4669d7bc7d07350d798f474d230cbd90" class = "d-block h-100 mx-auto" alt = "project image">
+                    </div>
+                <% } else if(user.Posts.length === 1) { %>
+                    <div class = "carousel-item active h-100">
+                        <img src = "<%=user.Posts[0].image%>" class = "d-block h-100 mx-auto" alt = "project image">
+                        <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
+                                <h5 class = "text-dark"><%=user.Posts[0].title%></h5>
+                            <p class = "text-dark"><%=user.Posts[0].titleBlurb%>></p>
+                            <a href='/posts/<%=user.Posts[0].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                         </div>
-                    <% } else if(user.Posts.length === 1) { %>
-                        <div class = "carousel-item active h-100">
-                            <img src = "<%=user.Posts[0].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                            <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
-                                 <h5 class = "text-dark"><%=user.Posts[0].title%></h5>
-                                <p class = "text-dark"><%=user.Posts[0].titleBlurb%>></p>
-                                <a href='/posts/<%=user.Posts[0].id%>?require=false' class='btn btn-primary'>Go to project!</a>
-                            </div>
-                        </div>
-                    <%} else {%>
-                        <ol class = "carousel-indicators">
-                        <%for(let i=0; i<user.Posts.length; i++) {%>
-                            <%if(i === 0) { %>
-                                <li data-target = "projectCarousel" data-slide-to="0" class = "active">
-                            <%} else {%>
-                                <li data-target = "projectCarousel" data-slide-to="<%i%>">
-                            <% } %>
-                            </li>
+                    </div>
+                <%} else {%>
+                    <ol class = "carousel-indicators">
+                    <%for(let i=0; i<user.Posts.length; i++) {%>
+                        <%if(i === 0) { %>
+                            <li data-target = "projectCarousel" data-slide-to="0" class = "active">
+                        <%} else {%>
+                            <li data-target = "projectCarousel" data-slide-to="<%i%>">
                         <% } %>
-                        </ol>
-                        <%for(let i=0; i<user.Posts.length; i++) {%>
-                            <%if(i === 0) { %>
-                                <div class = "carousel-item active h-100">
-                            <%} else {%>
-                                <div class = "carousel-item h-100">
-                            <% } %>
-                                    <img src = "<%=user.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                                    <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
-                                        <h5 class = "text-dark"><%=user.Posts[i].title%></h5>
-                                        <p class = "text-dark"><%=user.Posts[i].titleBlurb%></p>
-                                        <a href='/posts/<%=user.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
-                                    </div>
-                                </div>
-                        <% } %>
+                        </li>
                     <% } %>
-                </div>
-                <a class="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" style = "filter: drop-shadow(0 0 0.25rem #6c757d);" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" style = "filter: drop-shadow(0 0 0.25rem #6c757d);" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                    </ol>
+                    <%for(let i=0; i<user.Posts.length; i++) {%>
+                        <%if(i === 0) { %>
+                            <div class = "carousel-item active h-100">
+                        <%} else {%>
+                            <div class = "carousel-item h-100">
+                        <% } %>
+                                <img src = "<%=user.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
+                                <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
+                                    <h5 class = "text-dark"><%=user.Posts[i].title%></h5>
+                                    <p class = "text-dark"><%=user.Posts[i].titleBlurb%></p>
+                                    <a href='/posts/<%=user.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
+                                </div>
+                            </div>
+                    <% } %>
+                <% } %>
             </div>
+            <a class="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" style = "filter: drop-shadow(0 0 0.25rem #6c757d);" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" style = "filter: drop-shadow(0 0 0.25rem #6c757d);" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+    </div>
 </div>
 <%- include("../partials/footer.ejs") %>
