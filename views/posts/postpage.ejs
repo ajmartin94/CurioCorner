@@ -24,8 +24,11 @@ Likes: <%=post.Like.length%>
 
 <ul>
     <% post.Comments.forEach(comment => { %>
-        <li><%=comment.text%> -- <%=comment.User.username%> </li>
-    <% }) %>
+        <%if(!comment.User) {%> 
+            <li><%=comment.text%> -- Former User </li> 
+            <% } else { %>
+            <li><%=comment.text%> -- <%=comment.User.username%> </li>
+    <% }}) %>
 </ul>
 <% if(user) { %>
     <% if(post.userId === user.id) {%>
