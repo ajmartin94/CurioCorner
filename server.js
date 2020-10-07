@@ -27,11 +27,12 @@ const verifyToken = (req,res,next) => {
             }
 
             req.user = decodedUser;
+            next();
+            return
         })
 
-        next();
         return;
-    }
+    } 
     
     let token = req.cookies.jwt;
 
@@ -44,6 +45,7 @@ const verifyToken = (req,res,next) => {
 
         next();
     })
+    
 };
 
 

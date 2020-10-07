@@ -1,38 +1,38 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %>
-
-<div class='container d-flex justify-content-start'>
-    <div class='card' style='max-width: 400px;'>
-        <div class='row no-gutters'>
-            <div class='col-md-4'>
-                <img src='<%=user.profileImg%>' class='card-img' alt='user profile picture'> 
-            </div>
-            <div class='col-md-8'>
-                <div class='card-body'>
-                    <h5 class='card-title'><%=user.name%></h5>
-                    <p class='card-text'><%=user.bio%></p>
-                    <% if(viewing.id === user.id) { %>
-                        <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
-                    <% } %>
+<div class="container-fluid d-flex flex-wrap">
+    <div class='container d-flex justify-content-start'>
+        <div class='card' style='width: 400px;'>
+            <div class='row no-gutters'>
+                <div class='col-md-4 align-self-center'>
+                    <img src='<%=user.profileImg%>' class='card-img' alt='user profile picture'> 
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class='container d-flex flex-column'>
-        <h3>Created Projects:</h3>
-        <div class='container d-flex justify-content-center'>
-            <% user.Posts.forEach(post => { %>
-                <div class='card m-3' style='width: 18rem;'>
-                    <img src='<%=post.image%>' class='card-img-top' alt='project image' />
+                <div class='col-md-8'>
                     <div class='card-body'>
-                        <h5 class='card-title'><%= post.title %></h5>
-                        <p class='card-text'>Example text for what should describe the project</p>
-                        <a href='/posts/<%=post.id%>?require=false' class='btn btn-primary'>Go to project!</a>
+                        <h1 class='card-title h4'><%=user.name%></h1>
+                        <p class='card-text text-muted'><%=user.bio%></p>
+                        <% if(viewing.id === user.id) { %>
+                            <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
+                        <% } %>
                     </div>
                 </div>
-            <% }) %>
+            </div>
         </div>
     </div>
+        <div class='container d-flex flex-column flex-wrap'>
+            <h2 class = "h3">Created Projects:</h2>
+            <div class='container d-flex justify-content-center'>
+                <% user.Posts.forEach(post => { %>
+                    <div class='card m-3' style='width: 18rem;'>
+                        <img src='<%=post.image%>' class='card-img-top' alt='project image' height="250px"/>
+                        <div class='card-body'>
+                            <h3 class='card-title h5'><%= post.title %></h3>
+                            <p class='card-text'>Example text for what should describe the project</p>
+                            <a href='/posts/<%=post.id%>?require=false' class='btn btn-primary'>Go to project!</a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
 </div>
-
 <%- include("../partials/footer.ejs") %>
