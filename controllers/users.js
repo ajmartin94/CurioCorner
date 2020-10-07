@@ -80,10 +80,23 @@ const image = (req, res) => {
     }
 }
 
+const followUser = (req,res) => {
+    Users.findByPk(req.params.id)
+    .then(baseUser => {
+        Users.findByPk(req.user.id)
+        .then(followingUser => {
+            baseUser.addFollower(followingUser);
+
+            res.redirect(`/users/profile/${baseUser.username}`);
+        })
+    })
+}
+
 module.exports = {
     renderProfile,
     updateProfile,
     deleteUser, 
     image,
-    renderEditProfile
+    renderEditProfile,
+    followUser
 }

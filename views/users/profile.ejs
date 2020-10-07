@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %>
 <div class="container-fluid d-flex flex-wrap">
-    <div class='container- d-flex justify-content-center'>
+    <div class='container-md d-flex justify-content-center'>
         <div class='card' style='width: 100%;'>
             <div class='row no-gutters'>
                 <div class='col-md-4 align-self-center'>
@@ -13,6 +13,8 @@
                         <p class='card-text text-muted'><%=profileUser.bio%></p>
                         <% if(user && user.id === profileUser.id) { %>
                             <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
+                        <% } else { %>
+                            <a href='/users/profile/follow/<%=user.id%>' class='btn btn-primary'>Follow <$=user.name%></a>
                         <% } %>
                     </div>
                 </div>
