@@ -10,6 +10,7 @@
                 <div class='col-md-8'>
                     <div class='card-body'>
                         <h1 class='card-title h4'><%=profileUser.name%></h1>
+                        <h2 class='card-subtitle h5 text-muted'><%=profileUser.follower.length%> Followers</h2>
                         <p class='card-text text-muted'><%=profileUser.bio%></p>
                         <% if(user && user.id === profileUser.id) { %>
                             <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
