@@ -20,4 +20,6 @@ router.post('/:id/comment',ctrl.posts.addComment);
 
 router.post('/search',ctrl.posts.renderSearch);
 
+router.get('/category/:catName',ctrl.posts.renderCategory);
+
 module.exports = router;

@@ -9,7 +9,13 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class='nav-link' href="/">Home</a></li>
                 <li class="nav-item"><a class='nav-link' href="/posts/new">New Project</a></li>
-                <li class='nav-item'><a class='nav-link' href="#">Contact</a></li>
+                <li class='nav-item dropdown'><a class='nav-link dropdown-toggle' href="#" id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Search By Category</a>
+                    <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                        <% allCategories.forEach(category => { %>
+                            <a class='dropdown-item' href='/posts/category/<%=category.name%>?require=false'><%=category.name%></a>
+                        <% }) %>
+                    </div>
+                </li>
             </ul>
             
             <form class='form-inline' action='/posts/search?require=false' method='POST'>
