@@ -14,59 +14,51 @@
                         <% if(user && user.id === profileUser.id) { %>
                             <a href='/users/profile/edit' class='btn btn-primary'>Edit Profile</a>
                         <% } else { %>
-                            <a href='/users/profile/follow/<%=user.id%>' class='btn btn-primary'>Follow <$=user.name%></a>
+                            <a href='/users/profile/follow/<%=profileUser.id%>' class='btn btn-primary'>Follow <%=profileUser.name%></a>
                         <% } %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <div class='container d-flex flex-column flex-wrap' style = "height:90vh">
-            <h2 class = "h3">Created Projects:</h2>
-            <div id="projectCarousel" class='carousel slide' data-ride = "carousel" style="height:80vh;">
-                <div class = "carousel-inner h-100">
-                    <%if(profileUser.Posts.length === 0) {%>
-                        <div class = "carousel-item active h-100">
-                            <img src = "/images/posts/4669d7bc7d07350d798f474d230cbd90" class = "d-block h-100 mx-auto" alt = "project image">
+    <div class='container d-flex flex-column flex-wrap' style = "height:90vh">
+        <h2 class = "h3">Created Projects:</h2>
+        <div id="projectCarousel" class='carousel slide' data-ride = "carousel" style="height:80vh;">
+            <div class = "carousel-inner h-100">
+                <%if(profileUser.Posts.length === 0) {%>
+                    <div class = "carousel-item active h-100">
+                        <img src = "/images/posts/4669d7bc7d07350d798f474d230cbd90" class = "d-block h-100 mx-auto" alt = "project image">
+                    </div>
+                <% } else if(profileUser.Posts.length === 1) { %>
+                    <div class = "carousel-item active h-100">
+                        <img src = "<%=profileUser.Posts[0].image%>" class = "d-block h-100 mx-auto" alt = "project image">
+                        <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
+                                <h5 class = "text-dark"><%=profileUser.Posts[0].title%></h5>
+                            <p class = "text-dark"><%=profileUser.Posts[0].titleBlurb%>></p>
+                            <a href='/posts/<%=profileUser.Posts[0].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                         </div>
-                    <% } else if(profileUser.Posts.length === 1) { %>
-                        <div class = "carousel-item active h-100">
-                            <img src = "<%=profileUser.Posts[0].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                            <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
-                                 <h5 class = "text-dark"><%=profileUser.Posts[0].title%></h5>
-                                <p class = "text-dark"><%=profileUser.Posts[0].titleBlurb%>></p>
-                                <a href='/posts/<%=profileUser.Posts[0].id%>?require=false' class='btn btn-primary'>Go to project!</a>
-                            </div>
-                        </div>
-                    <%} else {%>
-                        <ol class = "carousel-indicators">
-                        <%for(let i=0; i<profileUser.Posts.length; i++) {%>
-                            <%if(i === 0) { %>
-                                <li data-target = "projectCarousel" data-slide-to="0" class = "active">
-                            <%} else {%>
-                                <li data-target = "projectCarousel" data-slide-to="<%i%>">
-                            <% } %>
-                            </li>
+                    </div>
+                <%} else {%>
+                    <ol class = "carousel-indicators">
+                    <%for(let i=0; i<profileUser.Posts.length; i++) {%>
+                        <%if(i === 0) { %>
+                            <li data-target = "projectCarousel" data-slide-to="0" class = "active">
+                        <%} else {%>
+                            <li data-target = "projectCarousel" data-slide-to="<%i%>">
                         <% } %>
-                        </ol>
-                        <%for(let i=0; i<profileUser.Posts.length; i++) {%>
-                            <%if(i === 0) { %>
-                                <div class = "carousel-item active h-100">
-                            <%} else {%>
-                                <div class = "carousel-item h-100">
-                            <% } %>
-                                    <img src = "<%=profileUser.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                                    <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
-                                        <h5 class = "text-dark"><%=profileUser.Posts[i].title%></h5>
-                                        <p class = "text-dark"><%=profileUser.Posts[i].titleBlurb%></p>
-                                        <a href='/posts/<%=profileUser.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
-                                    </div>
-                                </div>
+                        </li>
+                    <% } %>
+                    </ol>
+                    <%for(let i=0; i<profileUser.Posts.length; i++) {%>
+                        <%if(i === 0) { %>
+                            <div class = "carousel-item active h-100">
+                        <%} else {%>
+                            <div class = "carousel-item h-100">
                         <% } %>
                                 <img src = "<%=profileUser.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
                                 <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
-                                    <h5 class = "text-dark"><%=user.Posts[i].title%></h5>
-                                    <p class = "text-dark"><%=user.Posts[i].titleBlurb%></p>
+                                    <h5 class = "text-dark"><%=profileUser.Posts[i].title%></h5>
+                                    <p class = "text-dark"><%=profileUser.Posts[i].titleBlurb%></p>
                                     <a href='/posts/<%=profileUser.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                                 </div>
                             </div>
