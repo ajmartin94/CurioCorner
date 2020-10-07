@@ -9,9 +9,9 @@
     Content: <input type="text" name="content">
     Image: <input type="file" accept = "image/*" name="image">
     <br>Category: <br>
-    <%for (let i = 0; i<categories.length; i++) { %>
+    <%for (let i = 0; i<allCategories.length; i++) { %>
         <label>
-            <input type = "checkbox" name = "selectedCategories" value = "<%=categories[i].id%>"> <%=categories[i].name%>
+            <input type = "checkbox" name = "selectedCategories" value = "<%=allCategories[i].id%>"> <%=allCategories[i].name%>
         </label>
         <% } %>
     <input type="submit" value="Submit">

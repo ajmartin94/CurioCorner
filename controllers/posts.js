@@ -7,7 +7,7 @@ const { Op } = require('sequelize');
 
 const renderNewPost = (req,res) => {
     res.render('posts/new.ejs', {
-        categories: req.categories
+        allCategories: req.categories
     });
 }
 
