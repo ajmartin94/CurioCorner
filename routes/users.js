@@ -12,4 +12,6 @@ router.put("/profile", upload.single("profileImg"), ctrl.users.updateProfile);
 
 router.delete("/profile", ctrl.users.deleteUser);
 
+router.get('/profile/follow/:id', ctrl.users.followUser);
+
 module.exports = router;

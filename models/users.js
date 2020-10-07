@@ -25,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       Users.hasMany(models.Posts,{
         foreignKey:'userId'
       })
+      // Users.belongsToMany(models.Users, {
+      //   as: 'followers',
+      //   through: 'following',
+      //   foreignKey: 'baseUserId',
+      //   otherKey: 'followerId'
+      // })
     }
   };
   Users.init({

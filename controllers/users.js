@@ -2,7 +2,7 @@ const Users = require("../models").Users;
 const Posts = require('../models').Posts;
 
 const renderProfile = (req, res) => {
-        Users.findOne({
+    Users.findOne({
         where:{
             username: req.params.username
         },
@@ -21,7 +21,8 @@ const renderProfile = (req, res) => {
         } else {
             res.render("users/profile.ejs", {
                 profileUser: profileUser,
-                user: null
+                user: null,
+                allCategories: req.categories
             })
         }
     })
@@ -79,10 +80,23 @@ const image = (req, res) => {
     }
 }
 
+const followUser = (req,res) => {
+    Users.findByPk(req.params.id)
+    .then(baseUser => {
+        Users.findByPk(req.user.id)
+        .then(followingUser => {
+            baseUser.addFollower(followingUser);
+
+            res.redirect(`/users/profile/${baseUser.username}`);
+        })
+    })
+}
+
 module.exports = {
     renderProfile,
     updateProfile,
     deleteUser, 
     image,
-    renderEditProfile
+    renderEditProfile,
+    followUser
 }
