@@ -27,7 +27,7 @@
                         <img src='<%=post.image%>' class='card-img-top' alt='project image' height="250px"/>
                         <div class='card-body'>
                             <h3 class='card-title h5'><%= post.title %></h3>
-                            <p class='card-text'>Example text for what should describe the project</p>
+                            <p class='card-text'><%= post.titleBlurb %></p>
                             <a href='/posts/<%=post.id%>?require=false' class='btn btn-primary'>Go to project!</a>
                         </div>
                     </div>
