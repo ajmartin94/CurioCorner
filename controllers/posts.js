@@ -85,6 +85,7 @@ const editPost = (req,res) => {
     if(req.file) {
         req.body.image = `/images/posts/${req.file.filename}`
     }
+
     Posts.update(req.body, {
         where: {id: req.params.id},
         returning: true
