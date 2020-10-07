@@ -1,43 +1,57 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %> 
-<div class = "container">
+<div class = "container pb-5">
     <h1> <%= post.title %> </h1>
-    <img src="<%=post.image%>" alt = "Project Image">
-    <h3>Created By: 
+    <h3 class = "h5 text-muted">Created By: 
         <%if(post.User){ %>
             <a href="/users/profile/<%=post.User.username%>?require=false"><%=post.User.username%></a> <% } else { %> 
                 A Former Creator
                 <% } %>
     </h3>
-    <form action='/posts/<%=post.id%>/like' method='POST'>
-        <input type="submit" value="Like">
-    </form> 
-    Likes: <%=post.Like.length%>
+    <div class = "container" style="height: 50vh;">
+        <img src="<%=post.image%>" alt = "Project Image" class = "d-block h-100 mx-auto">
+    </div>
+    <div class = "container-fluid d-flex">
+        <form action='/posts/<%=post.id%>/like' method='POST' class = "m-3">
+            <input type="submit" value="Like">
+        </form> 
+        <p class = "m-3">Likes: <%=post.Like.length%></p>
+    </div>
     
     
-    <p> <%= post.content %> </p><br><br>
-    
-    <form action='/posts/<%=post.id%>/comment' method='POST'>
-        Comment Text: <input type="text" name="text">
-        <input type="submit" value="Submit">
-    </form><br><br>
-    
-    <ul>
-        <% post.Comments.forEach(comment => { %>
-            <%if(!comment.User) {%> 
-                <li><%=comment.text%> -- A Former Creator </li> 
-                <% } else { %>
-                <li><%=comment.text%> -- <%=comment.User.username%> </li>
-        <% }}) %>
-    </ul>
-    <% if(user) { %>
-        <% if(post.userId === user.id) {%>
-        <a href='/posts/<%=post.id%>/edit'>Edit Post</a><br>
-        <form onsubmit = 'return confirm("Do you want to delete this post?")' action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
-            <input type="submit" value="Delete Post">
+    <div class = "container-fluid blockquote">
+        <p> <%= post.content %> </p>
+    </div>
+    <br><br>
+    <div class = "container-fluid text-center">
+        <h3>Comments</h3>
+        <ul class = "list-group w-75 mx-auto text-left">
+            <% post.Comments.forEach(comment => { %>
+                <%if(!comment.User) {%> 
+                    <li class = "list-group-item"><%=comment.text%> <br>-- A Former Creator </li> 
+                    <% } else { %>
+                    <li class = "list-group-item"><%=comment.text%> <br>-- <a href="/users/profile/<%=comment.User.username%>?require=false"><%=comment.User.username%></a> </li>
+            <% }}) %>
+        </ul>
+        <% if(user) { %>
+            <% if(post.userId === user.id) {%>
+            <a href='/posts/<%=post.id%>/edit'>Edit Post</a><br>
+            <form onsubmit = 'return confirm("Do you want to delete this post?")' action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
+                <input type="submit" value="Delete Post">
+            </form>
+        <% }} %>
+        <br><br>
+        <form action='/posts/<%=post.id%>/comment' method='POST' class = "w-75 mx-auto form-group">
+            <h4>Comment:</h4>
+            <textarea type="text" name="text" class = "form-control" rows = "3"></textarea>
+            <br>
+            <input type="submit" class = "btn btn-primary" value="Submit">
         </form>
-    <% }} %>
+        
+    </div>
+    
 </div>
+
 
 
 <%- include("../partials/footer.ejs") %>
