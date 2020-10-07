@@ -3,10 +3,10 @@
 
 <h1>Make a New Post</h1>
 
-<form action='/posts/new' method='POST'>
+<form action='/posts/new' method='POST' enctype = "multipart/form-data">
     Title: <input type="text" name="title">
     Content: <input type="text" name="content">
-    Image Link: <input type="text" name="image">
+    Image: <input type="file" accept = "image/*" name="image">
     <br>Category: <br>
     <%for (let i = 0; i<categories.length; i++) { %>
         <label>

@@ -64,10 +64,10 @@ const deleteUser = (req,res) => {
 
 const image = (req, res) => {
     if (req.file.name === '') {
-        req.body.profileImg = `/images/kindpng_248253.png`;
+        req.body.profileImg = `/images/profile/kindpng_248253.png`;
     } else {
         const filename = req.file.filename;
-        req.body.profileImg = `/images/${filename}`;
+        req.body.profileImg = `/images/profile/${filename}`;
     }
 }
 

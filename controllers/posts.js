@@ -15,6 +15,11 @@ const renderNewPost = (req,res) => {
 
 const newPost = (req,res) => {
     req.body.userId = req.user.id;
+    if(req.file) {
+        req.body.image = `/images/posts/${req.file.filename}`
+    } else {
+        req.body.image = "/images/posts/4ee872b797951c7e97730fa814be7a1b";
+    }
     Posts.create(req.body)
     .then(newPost => {
         postBody(req, newPost)
@@ -75,6 +80,9 @@ const renderEditPost = (req,res) => {
 }
 
 const editPost = (req,res) => {
+    if(req.file) {
+        req.body.image = `/images/posts/${req.file.filename}`
+    }
     Posts.update(req.body, {
         where: {id: req.params.id},
         returning: true
