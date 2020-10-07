@@ -52,10 +52,11 @@ app.use(express.urlencoded({extended: true}));
 
 
 
-app.use('/css', express.static('node_modules/bootstrap/dist/css'))
-app.use('/js', express.static('node_modules/bootstrap/dist/js'))
-app.use('/js', express.static('node_modules/jquery/dist'))
-app.use('/images',express.static('public/images'))
+app.use('/css', express.static('node_modules/bootstrap/dist/css'));
+app.use('/js', express.static('node_modules/bootstrap/dist/js'));
+app.use('/js', express.static('node_modules/jquery/dist'));
+app.use('/images',express.static('public/images'));
+app.use("/public", express.static("public"));
 
 app.use(express.static('public'));
 

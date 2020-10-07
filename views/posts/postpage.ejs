@@ -2,7 +2,7 @@
 <%- include("../partials/navbar.ejs") %> 
 
 <h1> <%= post.title %> </h1>
-<img src="<%= post.image %>" alt = "Project Image">
+<img src="<%=post.image%>" alt = "Project Image">
 <h3>Created By: 
     <%if(post.User){ %>
         <%=post.User.username%><% } else { %> 
@@ -23,8 +23,8 @@ Likes: <%=post.Like.length%>
 </form><br><br>
 
 <ul>
-    <% post.Comment.forEach(comment => { %>
-        <li><%=comment.Comments.text%> -- <%=comment.username%></li>
+    <% post.Comments.forEach(comment => { %>
+        <li><%=comment.text%> -- <%=comment.User.username%> </li>
     <% }) %>
 </ul>
 <% if(user) { %>

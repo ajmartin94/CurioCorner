@@ -15,6 +15,11 @@ const renderNewPost = (req,res) => {
 
 const newPost = (req,res) => {
     req.body.userId = req.user.id;
+    if(req.file) {
+        req.body.image = `/images/posts/${req.file.filename}`
+    } else {
+        req.body.image = "/images/posts/4ee872b797951c7e97730fa814be7a1b";
+    }
     Posts.create(req.body)
     .then(newPost => {
         postBody(req, newPost)
@@ -22,6 +27,7 @@ const newPost = (req,res) => {
         res.redirect(`/posts/${newPost.id}?require=false`)
     })
 }
+//https://stackoverflow.com/questions/49395973/how-to-return-non-unique-join-table-records-in-sequelize
 
 const renderPost = (req,res) => {
     Posts.findByPk(req.params.id, {
@@ -31,11 +37,12 @@ const renderPost = (req,res) => {
                 as: 'Like'
             },
             {
-                model: Users,
-                as: 'Comment'
+                model: Comments,
+                include: [{model: Users}]
             },
             {
-                model: Users
+                model: Users,
+                
             }
         ]
     })
@@ -43,7 +50,7 @@ const renderPost = (req,res) => {
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
-                console.log(JSON.stringify(foundPost,null,2))
+                console.log(JSON.stringify(foundPost.Comments,null,2))
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser
@@ -75,6 +82,10 @@ const renderEditPost = (req,res) => {
 }
 
 const editPost = (req,res) => {
+    if(req.file) {
+        req.body.image = `/images/posts/${req.file.filename}`
+    }
+
     Posts.update(req.body, {
         where: {id: req.params.id},
         returning: true
