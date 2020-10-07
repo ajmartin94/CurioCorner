@@ -1,6 +1,6 @@
   .signin {
     background: #fafafa;
-    margin-top: 0;
+    margin-top: -5vh;
     padding-top: 10vh;
   }
 
@@ -31,4 +31,9 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  
+  .signup-form {
+      max-width: 550px;
+      background-color: #fafafa; 
+      padding: 3px 15px;
+      border-radius:.3rem;
+  }

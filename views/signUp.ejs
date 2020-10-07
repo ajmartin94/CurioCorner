@@ -1,17 +1,35 @@
 <%- include('./partials/header.ejs') %>
 <%- include("./partials/navbar.ejs") %> 
-<div class = "container text-center">
-    <h1>Signup Page</h1>
-    <form action='/auth/signUp' method='POST' enctype= "multipart/form-data">
-        Name: <input type="text" name="name"><br><br>
-        Username: <input type="text" name="username"><br><br>
-        Password: <input type="password" name="password"><br><br>
-        Bio: <input type="text" name="bio"><br><br>
-        Profile Picture: <input type = "file" accept = "image/*" name = "profileImg"/><br><br>
-        <input type="submit" value="Submit">
-    </form>
+<div class = "container-fluid text-center signup" style="height: 100vh; background: #007bff; margin-top:-5vh; padding-top:10vh">
+    <div class = "container text-center signup-form" >
+        <h1>Sign Up</h1>
+        <div class = "form-group">
+            <form action='/auth/signUp' method='POST' enctype= "multipart/form-data">
+                <div class = "form-group">
+                    <label for= "nameInput" class = "sr-only">Name</label>
+                    <input type="text" name="name" id="nameInput" placeholder = "Name" class = "form-control" required autofocus>
+                </div>
+                <div class = "form-group">
+                    <label for = "usernameInput" class = "sr-only">Username</label>
+                    <input type="text" class = "form-control" name="username" id = "usernameInput" placeholder = "Username" required autofocus>
+                </div>
+                <div class = "form-group">
+                    <label for = "passwordInput" class = "sr-only">Password:</label>
+                    <input type="password" class = "form-control" name="password" id="passwordInput" placeholder = "Password" required>
+                </div>
+                <div class = "form-group">
+                    <label for = "bioInput" class = "sr-only">Bio</label>
+                    <textarea name = "bio" class = "form-control" id="bioInput" rows = "3" placeholder = "Bio"></textarea>
+                </div>
+                <div class = "form-group">
+                    <label for="profPicUpload">Profile Picture</label>
+                    <input type = "file" class = "form-control-file" accept = "image/*" name = "profileImg"/>
+                </div>
+                <button type="submit" class = "btn btn-lg btn-primary"> Sign Up!</button>
+            </form>
+        </div>
+    </div>
 </div>
-
 
 
 
