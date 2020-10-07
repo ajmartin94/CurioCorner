@@ -45,6 +45,7 @@ const renderPost = (req,res) => {
         ]
     })
     .then(foundPost => {
+        console.log(JSON.stringify(foundPost,null,2))
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
