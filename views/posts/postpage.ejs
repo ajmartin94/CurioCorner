@@ -38,7 +38,7 @@
                 <% } else { %>
                      <a href="/users/profile/<%=comment.User.username%>?require=false"><%=comment.User.username%></a>
                 <% } %>
-                <br><a href='/posts/<%=post.id%>/likecomment/<%=comment.id%>'>Like</a> | No of Likes </li> 
+                <br><a href='/posts/<%=post.id%>/likecomment/<%=comment.id%>'>Like</a> | <%= comment.CommentLike.length %> Likes </li> 
         <% }) %>
         </ul>
         <% if(user) { %>

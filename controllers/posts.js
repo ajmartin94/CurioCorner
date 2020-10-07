@@ -39,8 +39,11 @@ const renderPost = (req,res) => {
                 include: [{model: Users}]
             },
             {
-                model: Users,
-                
+                model: Comments,
+                include: [{
+                    model: Users,
+                    as: 'CommentLike'
+                }]
             }
         ]
     })
