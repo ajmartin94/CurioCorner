@@ -30,9 +30,9 @@
                     <% } else if(user.Posts.length === 1) { %>
                         <div class = "carousel-item active h-100">
                             <img src = "<%=user.Posts[0].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                            <div class = "carousel-caption d-none d-md-block bg-secondary">
+                            <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
                                  <h5 class = "text-dark"><%=user.Posts[0].title%></h5>
-                                <p class = "text-dark">TITLE BLURB WILL GO HERE DON"T FORGET TO CHANGE</p>
+                                <p class = "text-dark"><%=user.Posts[0].titleBlurb%>></p>
                                 <a href='/posts/<%=user.Posts[0].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                             </div>
                         </div>
@@ -54,9 +54,9 @@
                                 <div class = "carousel-item h-100">
                             <% } %>
                                     <img src = "<%=user.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
-                                    <div class = "carousel-caption d-none d-md-block bg-secondary">
+                                    <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
                                         <h5 class = "text-dark"><%=user.Posts[i].title%></h5>
-                                        <p class = "text-dark">TITLE BLURB WILL GO HERE DON"T FORGET TO CHANGE</p>
+                                        <p class = "text-dark"><%=user.Posts[i].titleBlurb%></p>
                                         <a href='/posts/<%=user.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                                     </div>
                                 </div>
