@@ -2,7 +2,7 @@ const Users = require("../models").Users;
 const Posts = require('../models').Posts;
 
 const renderProfile = (req, res) => {
-        Users.findOne({
+    Users.findOne({
         where:{
             username: req.params.username
         },

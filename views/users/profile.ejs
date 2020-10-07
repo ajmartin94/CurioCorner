@@ -63,11 +63,11 @@
                                     </div>
                                 </div>
                         <% } %>
-                                <img src = "<%=user.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
+                                <img src = "<%=profileUser.Posts[i].image%>" class = "d-block h-100 mx-auto" alt = "project image">
                                 <div class = "carousel-caption d-none d-md-block" style = "background-color: rgba(108, 117, 125, 0.9)">
                                     <h5 class = "text-dark"><%=user.Posts[i].title%></h5>
                                     <p class = "text-dark"><%=user.Posts[i].titleBlurb%></p>
-                                    <a href='/posts/<%=user.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
+                                    <a href='/posts/<%=profileUser.Posts[i].id%>?require=false' class='btn btn-primary'>Go to project!</a>
                                 </div>
                             </div>
                     <% } %>
