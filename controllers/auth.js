@@ -25,12 +25,12 @@ const renderLogin = (req,res) => {
 const renderSignUp = (req,res) => {
     console.log(req.query.valid)
     if(req.query.valid) {
-        res.render('signup.ejs', {
+        res.render('signUp.ejs', {
             correct: req.query.valid,
             allCategories: req.categories
         })
     } else {
-        res.render('signup.ejs', {
+        res.render('signUp.ejs', {
             correct: null,
             allCategories: req.categories
         })
