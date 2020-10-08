@@ -16,7 +16,7 @@ const renderLogin = (req,res) => {
         res.render('login.ejs', {
             correct: req.query.valid,
             allCategories: req.categories,
-            redirect: null
+            redirect: req.headers.referer
         })
     }
     
@@ -92,14 +92,8 @@ const login = (req,res) => {
                         }
                     );
                     res.cookie("jwt", token);
-
-                    if (req.query.redirect) {
-                        res.redirect(req.query.redirect);
-                    } else {
-                        res.redirect(`/users/profile/${foundUser.username}`);
-                    }
-                    
-
+                    res.redirect(req.query.redirect);
+                
                 } else {
                     res.redirect("/auth/login?valid=0");
                 }
@@ -116,7 +110,7 @@ const login = (req,res) => {
 
 const logout = (req,res) => {
     res.clearCookie("jwt");
-    res.redirect("/")
+    res.redirect(req.headers.referer)
 }
 
 
