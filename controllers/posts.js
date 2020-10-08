@@ -48,7 +48,6 @@ const renderPost = (req,res) => {
         ]
     })
     .then(foundPost => {
-        console.log(JSON.stringify(foundPost,null,2))
         if(req.user) {
             Users.findByPk(req.user.id)
             .then(foundUser => {
@@ -113,6 +112,17 @@ const likePost = (req,res) => {
         Users.findByPk(req.user.id)
         .then(foundUser => {
             foundUser.addLike(foundPost);
+            res.redirect(`/posts/${req.params.id}?require=false`);
+        })
+    })
+}
+
+const unlikePost = (req,res) => {
+    Posts.findByPk(req.params.id)
+    .then(foundPost => {
+        Users.findByPk(req.user.id)
+        .then(foundUser => {
+            foundUser.removeLike(foundPost);
             res.redirect(`/posts/${req.params.id}?require=false`);
         })
     })
@@ -239,6 +249,7 @@ module.exports = {
     editPost,
     deletePost,
     likePost,
+    unlikePost,
     addComment,
     renderSearch,
     renderCategory,
