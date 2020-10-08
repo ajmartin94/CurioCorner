@@ -110,6 +110,16 @@ app.post("/uploadProf", uploadProf.single("profileImg"), (req,res) => {
     else throw 'error'
 })
 
+app.get('/about', (req,res) => {
+    Category.findAll()
+    .then(allCategories => {
+        req.categories = allCategories;
+        res.render('about.ejs', {
+            allCategories: req.categories
+        })
+    })
+})
+
 app.listen(process.env.PORT, () => console.log('Running on port '+process.env.PORT));
 
 module.exports = {
