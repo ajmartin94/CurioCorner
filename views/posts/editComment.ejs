@@ -1,0 +1,16 @@
+<%- include("../partials/header.ejs") %>
+<%- include("../partials/navbar.ejs") %> 
+
+<div class = "container-fluid">
+    <h1 class = "ml-5 h4">Edit Comment</h1>
+    <div class = "form-group mx-auto w-75">
+        <form action='/posts/<%=postId%>/comment/<%=comment.id%>/edit?_method=PUT' method='POST'>
+            <div class = "form-group">
+                Comment text: <input type="text" name="text" class = "form-control" placeholder = "Comment Text" value='<%=comment.text%>'>
+            </div>
+            <button type="submit" class = "btn btn-primary">Submit Edits</button>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs") %>
