@@ -12,6 +12,9 @@
                 <div class = "form-group">
                     <label for = "usernameInput" class = "sr-only">Username</label>
                     <input type="text" class = "form-control" name="username" id = "usernameInput" placeholder = "Username" required autofocus>
+                    <%if(correct === "0") { %>
+                    <small class = "form-text text-danger">Username already taken. Please select a new username.</small>
+                    <% } %>
                 </div>
                 <div class = "form-group">
                     <label for = "passwordInput" class = "sr-only">Password:</label>
