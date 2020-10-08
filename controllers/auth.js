@@ -39,6 +39,8 @@ const renderSignUp = (req,res) => {
 
 const signUp = (req,res) => {
     if(req.file) {
+        console.log(req.file)
+        return
         if (req.file.name === '') {
             req.body.profileImg = `/images/profile/kindpng_248253.png`;
         } else {

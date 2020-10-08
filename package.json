@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/ajmartin94/CurioCorner#readme",
   "dependencies": {
+    "aws-sdk": "^2.770.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.5.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
@@ -30,6 +32,7 @@
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "pg": "^8.3.3",
     "popper.js": "^1.16.1",
     "sequelize": "^6.3.5",
