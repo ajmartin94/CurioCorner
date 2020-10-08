@@ -1,20 +1,39 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %> 
+<div class = "container-fluid">
+    
+    <h1 class = "ml-5">Make a New Post</h1>
+    <div class = "form-group mx-auto w-75">
+        <form action='/posts/new' method='POST' enctype = "multipart/form-data">
+            <div class = "form-group">
+                Title: <input type="text" name="title" class = "form-control" placeholder = "Project Title">
+            </div>
+            <div class = "form-group">
+                Tag Line: <input type='text' name='titleBlurb' class = "form-control" placeholder = "Short Project Overview">
+            </div>
+            <div class = "form-group">
+                Content: <textarea type="text" name="content" class = "form-control" rows = "4"></textarea>
+            </div>
+            <div class = "form-group">
+                Image: <input type="file" accept = "image/*" name="image" class = "form-control-file">
+            </div>
+            <div class = "form-group">
+                Category:
+                <div>
+                    <%for (let i = 0; i<allCategories.length; i++) { %>
+                        <div class = "form-check form-check-inline">
+                            <label class = "form-check-label">
+                                <input type = "checkbox" name = "selectedCategories" value = "<%=allCategories[i].id%>" class = "form-check-input"> <%=allCategories[i].name%>
+                            </label>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            
+            <button type="submit" class = "btn btn-lg btn-primary">Create Post!</button>
+        </form>
+    </div>
+</div>
 
-<h1>Make a New Post</h1>
-
-<form action='/posts/new' method='POST' enctype = "multipart/form-data">
-    Title: <input type="text" name="title">
-    Blurb Text: <input type='text' name='titleBlurb'>
-    Content: <input type="text" name="content">
-    Image: <input type="file" accept = "image/*" name="image">
-    <br>Category: <br>
-    <%for (let i = 0; i<allCategories.length; i++) { %>
-        <label>
-            <input type = "checkbox" name = "selectedCategories" value = "<%=allCategories[i].id%>"> <%=allCategories[i].name%>
-        </label>
-        <% } %>
-    <input type="submit" value="Submit">
-</form>
 
 <%- include("../partials/footer.ejs") %>
