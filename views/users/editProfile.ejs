@@ -1,17 +1,40 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/navbar.ejs") %>
+<div class = "container-fluid">
+    <h1 class = "ml-5">Update Profile</h1>
+    <div class = "form-group mx-auto w-75">
+        <form action = "/users/profile?_method=PUT" method = "POST" enctype= "multipart/form-data">
+            <div class = "form-group">
+                Name: <input type="text" name="name" value = "<%=user.name%>" class = "form-control">
+            </div>
+            <div class = "form-group">
+                Username: <input type="text" name="username" value = "<%=user.username%>" class = "form-control">
+            </div>
+            <div class = "form-group">
+                Password: <input type="password" name="password" value = "<%=user.password%>" class = "form-control">
+            </div>
+            <div class = "form-group">
+                Bio:<textarea name = "bio" class = "form-control" id="bioInput" rows = "3" placeholder = "Bio"><%=user.bio%></textarea>
+            </div>
+            <div class = "form-group">
+                Profile Picture:
+                <div class = "input-group">
+                    <div class='col-md-4 align-self-center input-group-prepend'>
+                        <img src='<%=user.profileImg%>' class='img-thumbnail' alt='user profile picture'> 
+                    </div>
+                </div>
+                    <input type = "file" accept = "image/*" name = "profileImg" class = "form-control-file"/>
+            </div>            
+            <button type="submit" class = "btn btn-lg btn-primary">Update Profile</button>
+        </form>
+        <br>
+        <div class = "form-group">
+            <form onsubmit = 'return confirm("Do you want to delete your profile?")' action = "/users/profile?_method=DELETE" method = "POST">
+                <button type = "submit" class = "btn btn-lg btn-danger">Delete Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<h2>Update Profile</h2>
-<form action = "/users/profile?_method=PUT" method = "POST" enctype= "multipart/form-data">
-    Name: <input type="text" name="name" value = "<%=user.name%>"><br><br>
-    Username: <input type="text" name="username" value = "<%=user.username%>"><br><br>
-    Password: <input type="password" name="password" value = "<%=user.password%>"><br><br>
-    Profile Picture: <input type = "file" accept = "image/*" name = "profileImg"/>
-    <input type="submit" value="Update Profile"/>
-</form>
-<br><br>
-<form onsubmit = 'return confirm("Do you want to delete your profile?")' action = "/users/profile?_method=DELETE" method = "POST">
-    <input type = "submit" value = "Delete Profile" />
-</form>
 
 <%- include("../partials/footer.ejs") %>
