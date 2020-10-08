@@ -6,10 +6,20 @@ const bcrypt = require('bcryptjs');
 
 
 const renderLogin = (req,res) => {
-    res.render('login.ejs', {
-        correct: req.query.valid,
-        allCategories: req.categories
-    })
+    if(req.query.redirect) {
+        res.render('login.ejs', {
+            correct: req.query.valid,
+            allCategories: req.categories,
+            redirect: req.query.redirect
+        })
+    } else {
+        res.render('login.ejs', {
+            correct: req.query.valid,
+            allCategories: req.categories,
+            redirect: req.headers.referer
+        })
+    }
+    
 }
 
 const renderSignUp = (req,res) => {
@@ -82,8 +92,8 @@ const login = (req,res) => {
                         }
                     );
                     res.cookie("jwt", token);
-                    res.redirect(`/users/profile/${foundUser.username}`);
-
+                    res.redirect(req.query.redirect);
+                
                 } else {
                     res.redirect("/auth/login?valid=0");
                 }
@@ -100,7 +110,7 @@ const login = (req,res) => {
 
 const logout = (req,res) => {
     res.clearCookie("jwt");
-    res.redirect("/")
+    res.redirect(req.headers.referer)
 }
 
 
