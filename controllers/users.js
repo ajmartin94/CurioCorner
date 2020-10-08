@@ -40,10 +40,14 @@ const renderProfile = (req, res) => {
 const renderEditProfile = (req,res) => {
     Users.findByPk(req.user.id)
     .then( foundUser => {
-        console.log(foundUser);
+
+        if(!req.query.valid){
+            req.query.valid=null;
+        }
         res.render('users/editProfile.ejs', {
             user: foundUser,
-            allCategories: req.categories
+            allCategories: req.categories,
+            correct: req.query.valid
         })
     })
 }
@@ -57,6 +61,13 @@ const updateProfile = (req, res) => {
         where: {id: req.user.id},
         returning: true
     })
+    .catch(err => {
+        console.log(`err: ${err}`)
+        if(err.errors[0].message === "username must be unique") {
+            res.redirect('/users/profile/edit?valid=0')
+        }
+    
+    })
     .then(updatedProfile => {
         Users.findOne({
             where:{
@@ -67,6 +78,7 @@ const updateProfile = (req, res) => {
             res.redirect(`/users/profile/${foundUser.username}`)
         })
     })
+    
     
 }
 
