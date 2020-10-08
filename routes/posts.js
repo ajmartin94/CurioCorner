@@ -18,6 +18,8 @@ router.get('/:id/like',ctrl.posts.likePost);
 router.get('/:id/unlike',ctrl.posts.unlikePost);
 
 router.post('/:id/comment',ctrl.posts.addComment);
+router.get('/:id/comment/:commentid/edit',ctrl.posts.renderEditComment);
+router.put('/:id/comment/:commentid/edit',ctrl.posts.editComment);
 
 router.post('/search',ctrl.posts.renderSearch);
 

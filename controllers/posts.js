@@ -237,6 +237,28 @@ const unlikeComment = (req,res) => {
     })
 }
 
+const renderEditComment = (req,res) => {
+    Comments.findByPk(req.params.commentid)
+    .then(foundComment => {
+        console.log(foundComment)
+        res.render('posts/editComment.ejs', {
+            comment: foundComment,
+            postId: req.params.id,
+            allCategories: req.categories
+        })
+    })
+}
+
+const editComment = (req,res) => {
+    Comments.update(req.body, {
+        where: {id: req.params.commentid},
+        returning: true
+    })
+    .then(edittedComment => {
+        res.redirect(`/posts/${req.params.id}?require=false`)
+    })
+}
+
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
         req.body.selectedCategories = [`${req.body.selectedCategories}`];
@@ -271,5 +293,7 @@ module.exports = {
     renderSearch,
     renderCategory,
     likeComment,
-    unlikeComment
+    unlikeComment,
+    renderEditComment,
+    editComment
 }
