@@ -14,7 +14,7 @@ router.put('/:id/edit', uploadPost.single("image"), ctrl.posts.editPost);
 
 router.delete('/:id',ctrl.posts.deletePost);
 
-router.post('/:id/like',ctrl.posts.likePost);
+router.get('/:id/like',ctrl.posts.likePost);
 
 router.post('/:id/comment',ctrl.posts.addComment);
 
