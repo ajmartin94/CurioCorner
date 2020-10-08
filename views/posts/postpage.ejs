@@ -80,11 +80,15 @@
                 <% } else { %>
                      <a href="/users/profile/<%=comment.User.username%>?require=false"><%=comment.User.username%></a>
                 <% } %>
-                
+
+                <% if (user && comment.userId === user.id) { %>
+                    | <a href='/posts/<%=post.id%>/comment/<%=comment.id%>/edit'>Edit</a>
+                <% } %>
+                <br> 
                 <% if (user && comment.CommentLike.map(like => like.id).includes(user.id)) { %>
-                    | <a href='/posts/<%=post.id%>/comment/<%=comment.id%>/edit'>Edit</a> <br> <a href='/posts/<%=post.id%>/unlikecomment/<%=comment.id%>'>Unlike</a>
+                    <a href='/posts/<%=post.id%>/unlikecomment/<%=comment.id%>'>Unlike</a>
                 <% } else { %>
-                    <br> <a href='/posts/<%=post.id%>/likecomment/<%=comment.id%>'>Like</a>
+                    <a href='/posts/<%=post.id%>/likecomment/<%=comment.id%>'>Like</a>
                 <% } %>
                 | <%= comment.CommentLike.length %> Likes </li> 
         <% }) %>
