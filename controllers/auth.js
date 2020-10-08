@@ -23,9 +23,18 @@ const renderLogin = (req,res) => {
 }
 
 const renderSignUp = (req,res) => {
-    res.render('signUp.ejs', {
-        allCategories: req.categories
-    })
+    console.log(req.query.valid)
+    if(req.query.valid) {
+        res.render('signup.ejs', {
+            correct: req.query.valid,
+            allCategories: req.categories
+        })
+    } else {
+        res.render('signup.ejs', {
+            correct: null,
+            allCategories: req.categories
+        })
+    }
 }
 
 const signUp = (req,res) => {
@@ -40,10 +49,10 @@ const signUp = (req,res) => {
         req.body.profileImg = `/images/profile/kindpng_248253.png`;
     }
     
-    
     bcrypt.genSalt(10,(err,salt) => {
         if(err) {
-            return res.send(err);
+            console.log(err.message)
+            return 
         }
         bcrypt.hash(req.body.password, salt, (err, hashedPswd) => {
             if(err) {
@@ -66,6 +75,12 @@ const signUp = (req,res) => {
 
                 res.cookie('jwt',token);
                 res.redirect(`/users/profile/${newUser.username}`)
+            })
+            .catch(err => {
+                if(err.errors[0].message === "username must be unique") {
+                    res.redirect('/auth/signup?valid=0')
+                }
+            
             })
         })
     })
@@ -101,10 +116,6 @@ const login = (req,res) => {
         } else {
             res.redirect("/auth/login?valid=0")
         }
-    })
-    .catch(err => {
-        console.log(err)
-        res.send("OMG WE FINALLY GOT HERE")
     })
 }
 
