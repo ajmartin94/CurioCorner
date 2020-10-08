@@ -90,17 +90,16 @@ app.get('/',(req,res,next) => {
     Category.findAll()
     .then(allCategories => {
         req.categories = allCategories;
-    })
 
-    Posts.findAll()
-    .then(allPosts => {
-        res.render('index.ejs', {
-            posts: allPosts,
-            user: req.user,
-            allCategories: req.categories
+        Posts.findAll()
+        .then(allPosts => {
+            res.render('index.ejs', {
+                posts: allPosts,
+                user: req.user,
+                allCategories: req.categories
+            })
         })
     })
-    
 });
 
 app.post("/uploadProf", uploadProf.single("profileImg"), (req,res) => {
@@ -108,6 +107,16 @@ app.post("/uploadProf", uploadProf.single("profileImg"), (req,res) => {
         res.json(req.file);
     }
     else throw 'error'
+})
+
+app.get('/about', (req,res) => {
+    Category.findAll()
+    .then(allCategories => {
+        req.categories = allCategories;
+        res.render('about.ejs', {
+            allCategories: req.categories
+        })
+    })
 })
 
 app.listen(process.env.PORT, () => console.log('Running on port '+process.env.PORT));
