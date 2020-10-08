@@ -12,31 +12,57 @@
         <img src="<%=post.image%>" alt = "Project Image" class = "d-block h-100 mx-auto">
     </div>
     <div class = "container-fluid d-flex">
-        <%let liked = false%>
-        <%post.Like.forEach(like => { %>
-            <%if(user && like.Likes.userId === user.id) { %>
-                <%liked = true;%>
-                <% }})%>
-        <%if(liked) {%>
-        <a href='/posts/<%=post.id%>/unlike' class = "m-3">
-            <button type="submit" class = "btn btn-danger" >
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" focusable="false" role = "img" aria-hidden = "true" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                  </svg>
-                Liked
-            </button>
-        </a>
-        <%} else {%>
-        <a href='/posts/<%=post.id%>/like' class = "m-3">
-            <button type="submit" class = "btn btn-outline-danger" >
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" focusable="false" role = "img" aria-hidden = "true" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                Like&ensp; 
-            </button>
-        </a>
-        <% } %>
-        <p class = "m-3 pt-1">Likes: <%=post.Like.length%></p>
+        <div class = "container d-flex">
+            <%let liked = false%>
+            <%post.Like.forEach(like => { %>
+                <%if(user && like.Likes.userId === user.id) { %>
+                    <%liked = true;%>
+                    <% }})%>
+            <%if(liked) {%>
+            <a href='/posts/<%=post.id%>/unlike' class = "m-3">
+                <button type="submit" class = "btn btn-danger" >
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" focusable="false" role = "img" aria-hidden = "true" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                      </svg>
+                      <span class = "badge badge-light text-muted badge-pill"><%=post.Like.length%></span>
+                </button>
+            </a>
+            <%} else {%>
+            <a href='/posts/<%=post.id%>/like' class = "m-3">
+                <button type="submit" class = "btn btn-outline-danger" >
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" focusable="false" role = "img" aria-hidden = "true" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                      </svg> 
+                      <span class = "badge text-muted badge-pill"><%=post.Like.length%></span>
+                </button>
+            </a>
+            <% } %>
+        </div>
+        <div class = "container d-inline-flex justify-content-end">
+            <% if(user) { %>
+                <% if(post.userId === user.id) {%>
+                    <div>
+                          <a href='/posts/<%=post.id%>/edit' class = "btn btn-secondary m-3">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                                <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+                              </svg>
+                              Edit Post
+                            </a>
+                    </div>
+                    <div>
+                        <button type = "submit" class = "btn btn-danger m-3" data-toggle = "modal" data-target="#confirmDelete">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                              </svg>
+                            Delete Post
+                        </button>
+                    </div>
+
+                
+            <% }} %>
+        </div>
     </div>
     
     
@@ -63,13 +89,7 @@
                 | <%= comment.CommentLike.length %> Likes </li> 
         <% }) %>
         </ul>
-        <% if(user) { %>
-            <% if(post.userId === user.id) {%>
-            <a href='/posts/<%=post.id%>/edit'>Edit Post</a><br>
-            <form onsubmit = 'return confirm("Do you want to delete this post?")' action='/posts/<%=post.id%>?_method=DELETE' method='POST'>
-                <input type="submit" value="Delete Post">
-            </form>
-        <% }} %>
+        
         <br><br>
         <form action='/posts/<%=post.id%>/comment' method='POST' class = "w-75 mx-auto form-group">
             <h4>Comment:</h4>
@@ -82,6 +102,34 @@
     
 </div>
 
-
+<div class = "modal fade" tabindex = "-1" role = "dialog" id = "confirmDelete" aria-labelledby = "confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm" role = "document">
+        <div class = "modal-content">
+            <div class = "modal-header d-flex flex-column">
+                <button type="button" class = "close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class = "mx-auto display-1 text-danger">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+                <h3 class = "modal-title w-100 text-center" id= "confirmDeleteLabel">Are you sure?</h3>
+                
+            </div>
+            <div class = "modal-body w-75 mx-auto text-center text-muted">
+                <p>Do you really want to delete this masterpice?</p>
+            </div>
+            <div class = "modal-footer w-75 mx-auto d-inline-flex justify-content-around">
+                <button type="button" class = "btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action = "/posts/<%=post.id%>?_method=DELETE" method = "POST">
+                    <button type="submit" class = "btn btn-danger">Delete Post</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include("../partials/footer.ejs") %>
