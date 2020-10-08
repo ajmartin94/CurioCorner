@@ -90,17 +90,16 @@ app.get('/',(req,res,next) => {
     Category.findAll()
     .then(allCategories => {
         req.categories = allCategories;
-    })
 
-    Posts.findAll()
-    .then(allPosts => {
-        res.render('index.ejs', {
-            posts: allPosts,
-            user: req.user,
-            allCategories: req.categories
+        Posts.findAll()
+        .then(allPosts => {
+            res.render('index.ejs', {
+                posts: allPosts,
+                user: req.user,
+                allCategories: req.categories
+            })
         })
     })
-    
 });
 
 app.post("/uploadProf", uploadProf.single("profileImg"), (req,res) => {
