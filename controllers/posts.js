@@ -50,7 +50,7 @@ const renderPost = (req,res) => {
     .then(foundPost => {
         if(req.user) {
             Users.findByPk(req.user.id)
-            .then(foundUser => {
+            .then(foundUser => {   
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser,
@@ -220,6 +220,19 @@ const likeComment = (req,res) => {
     })
 }
 
+const unlikeComment = (req,res) => {
+    Comments.findByPk(req.params.commentid)
+    .then(foundComment => {
+        console.log(foundComment)
+        Users.findByPk(req.user.id)
+        .then(user => {
+            foundComment.removeCommentLike(user);
+
+            res.redirect(`/posts/${req.params.postid}?require=false`)
+        })
+    })
+}
+
 function postBody(req, post) {
     if(req.body.selectedCategories.length < 2) {
         req.body.selectedCategories = [`${req.body.selectedCategories}`];
@@ -253,5 +266,6 @@ module.exports = {
     addComment,
     renderSearch,
     renderCategory,
-    likeComment
+    likeComment,
+    unlikeComment
 }

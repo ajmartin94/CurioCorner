@@ -24,5 +24,6 @@ router.post('/search',ctrl.posts.renderSearch);
 router.get('/category/:catName',ctrl.posts.renderCategory);
 
 router.get('/:postid/likecomment/:commentid', ctrl.posts.likeComment);
+router.get('/:postid/unlikecomment/:commentid', ctrl.posts.unlikeComment);
 
 module.exports = router;
