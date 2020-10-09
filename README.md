@@ -78,5 +78,5 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Keeping intent of the user in mind when redirecting for login
 
 ## Contribute
-- **Source Code:**https://github.com/ajmartin94/CurioCorner
+- **Source Code:** https://github.com/ajmartin94/CurioCorner
 - **Issue Tracker:** https://github.com/ajmartin94/CurioCorner/issues
