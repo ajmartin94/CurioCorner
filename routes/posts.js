@@ -15,8 +15,9 @@ const uploadPost = multer({
         s3:s3,
         bucket: "curiocorner",
         key: function(req,file, cb) {
-            cb(null,Date.now().toString())
-        }
+            cb(null,`${file.originalname}_${req.user.username}`)
+        },
+        ACL: 'public-read'
     })
 });
 
@@ -26,7 +27,7 @@ router.post('/new',uploadPost.single("image"),ctrl.posts.newPost);
 router.get('/:id',ctrl.posts.renderPost);
 
 router.get('/:id/edit',ctrl.posts.renderEditPost);
-router.put('/:id/edit', uploadPost.single("image"), ctrl.posts.editPost);
+router.put('/:id/edit',uploadPost.single("image"),ctrl.posts.editPost);
 
 router.delete('/:id',ctrl.posts.deletePost);
 
@@ -45,3 +46,4 @@ router.get('/:postid/likecomment/:commentid', ctrl.posts.likeComment);
 router.get('/:postid/unlikecomment/:commentid', ctrl.posts.unlikeComment);
 
 module.exports = router;
+

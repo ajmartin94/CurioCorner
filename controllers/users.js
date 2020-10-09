@@ -53,9 +53,8 @@ const renderEditProfile = (req,res) => {
 }
 
 const updateProfile = (req, res) => {
-
     if(req.file) {
-        req.body.profileImg = `/images/profile/${req.file.filename}`
+        req.body.profileImg = `https://curiocorner.s3.us-east-2.amazonaws.com/${req.file.originalname}_${req.user.username}`;
     }
     Users.update(req.body, {
         where: {id: req.user.id},
@@ -92,14 +91,6 @@ const deleteUser = (req,res) => {
     })
 }
 
-const image = (req, res) => {
-    if (req.file.name === '') {
-        req.body.profileImg = `/images/profile/kindpng_248253.png`;
-    } else {
-        const filename = req.file.filename;
-        req.body.profileImg = `/images/profile/${filename}`;
-    }
-}
 
 const followUser = (req,res) => {
     Users.findByPk(req.params.id)
@@ -117,7 +108,6 @@ module.exports = {
     renderProfile,
     updateProfile,
     deleteUser, 
-    image,
     renderEditProfile,
     followUser
 }

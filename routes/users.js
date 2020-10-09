@@ -15,8 +15,9 @@ const upload = multer({
         s3:s3,
         bucket: "curiocorner",
         key: function(req,file, cb) {
-            cb(null,Date.now().toString())
-        }
+            cb(null,`${file.originalname}_${req.user.username}`)
+        },
+        ACL: 'public-read'
     })
 });
 
@@ -31,3 +32,4 @@ router.delete("/profile", ctrl.users.deleteUser);
 router.get('/profile/follow/:id', ctrl.users.followUser);
 
 module.exports = router;
+

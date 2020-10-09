@@ -31,7 +31,8 @@ const uploadProf = multer({
         bucket: "curiocorner",
         key: function(req,file, cb) {
             cb(null,Date.now().toString())
-        }
+        },
+        ACL: 'public-read'
     })
 });
 

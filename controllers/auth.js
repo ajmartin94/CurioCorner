@@ -40,12 +40,11 @@ const renderSignUp = (req,res) => {
 const signUp = (req,res) => {
     if(req.file) {
         console.log(req.file)
-        return
         if (req.file.name === '') {
             req.body.profileImg = `/images/profile/kindpng_248253.png`;
         } else {
             const filename = req.file.filename;
-            req.body.profileImg = `/images/profile/${filename}`;
+            req.body.profileImg = `https://curiocorner.s3.us-east-2.amazonaws.com/${req.file.originalname}_${req.body.username}`;
         }
     } else {
         req.body.profileImg = `/images/profile/kindpng_248253.png`;

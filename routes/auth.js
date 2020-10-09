@@ -15,8 +15,9 @@ const uploadProf = multer({
         s3:s3,
         bucket: "curiocorner",
         key: function(req,file, cb) {
-            cb(null,Date.now().toString())
-        }
+            cb(null,`${file.originalname}_${req.body.username}`)
+        },
+        ACL: 'public-read'
     })
 });
 router.get('/login',ctrl.auth.renderLogin);
