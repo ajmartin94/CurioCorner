@@ -62,4 +62,12 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Follow button for user profiles
 - Like and edit function for comments. Comments also sort by highest like on page.
 
-google maps API key: AIzaSyAkI6D2lfATOlMrdchg5S9lOQ2bXauOXeg
+## Project Execution
+
+### Interesting Challenges
+- Image uploading required AWS S3 bucket
+- NPM Bootstrap loading took too much time to implement
+- Many-to-many relationships only pulling one entry required new model config
+- Heroku server issues caused some sweating
+- User authentication mixed with routes that didn't need authentication
+- Keeping intent of the user in mind when redirecting for login
