@@ -14,7 +14,7 @@ const renderNewPost = (req,res) => {
 const newPost = (req,res) => {
     req.body.userId = req.user.id;
     if(req.file) {
-        req.body.image = `/images/posts/${req.file.filename}`
+        req.body.image = `https://curiocorner.s3.us-east-2.amazonaws.com/${req.file.originalname}_${req.user.username}`;
     } else {
         req.body.image = "/images/posts/4ee872b797951c7e97730fa814be7a1b";
     }
@@ -51,10 +51,9 @@ const renderPost = (req,res) => {
         ]
     })
     .then(foundPost => {
-        console.log(JSON.stringify(foundPost,null,2))
         if(req.user) {
             Users.findByPk(req.user.id)
-            .then(foundUser => {   
+            .then(foundUser => {  
                 res.render('posts/postpage.ejs', {
                     post: foundPost,
                     user: foundUser,
@@ -84,8 +83,9 @@ const renderEditPost = (req,res) => {
 }
 
 const editPost = (req,res) => {
+    console.log(req.user)
     if(req.file) {
-        req.body.image = `/images/posts/${req.file.filename}`
+        req.body.image = `https://curiocorner.s3.us-east-2.amazonaws.com/${req.file.originalname}_${req.user.username}`;
     }
 
     Posts.update(req.body, {
@@ -147,7 +147,6 @@ const addComment = (req,res) => {
 
 const renderSearch = (req,res) => {
     let searchCrit = '%'+req.body.searchCriteria.replace(' ','%')+'%';
-    console.log(searchCrit);
     Posts.findAll({
         where: {
             [Op.or]: [
@@ -190,7 +189,6 @@ const renderCategory = (req,res) => {
             include: [Posts]
         })
         .then(foundCategory => {
-            console.log(JSON.stringify(foundCategory,null,2));
             if(req.user) {
                 Users.findByPk(req.user.id)
                 .then(foundUser => {
@@ -214,7 +212,6 @@ const renderCategory = (req,res) => {
 const likeComment = (req,res) => {
     Comments.findByPk(req.params.commentid)
     .then(foundComment => {
-        console.log(foundComment)
         Users.findByPk(req.user.id)
         .then(user => {
             foundComment.addCommentLike(user);
@@ -227,7 +224,6 @@ const likeComment = (req,res) => {
 const unlikeComment = (req,res) => {
     Comments.findByPk(req.params.commentid)
     .then(foundComment => {
-        console.log(foundComment)
         Users.findByPk(req.user.id)
         .then(user => {
             foundComment.removeCommentLike(user);
@@ -240,7 +236,6 @@ const unlikeComment = (req,res) => {
 const renderEditComment = (req,res) => {
     Comments.findByPk(req.params.commentid)
     .then(foundComment => {
-        console.log(foundComment)
         res.render('posts/editComment.ejs', {
             comment: foundComment,
             postId: req.params.id,
