@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   Posts.init({
     title: DataTypes.STRING,
     titleBlurb: DataTypes.STRING,
-    content: DataTypes.STRING,
+    content: DataTypes.STRING(10000),
     image: DataTypes.STRING,
     geotagId: DataTypes.INTEGER
   }, {
