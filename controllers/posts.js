@@ -83,7 +83,6 @@ const renderEditPost = (req,res) => {
 }
 
 const editPost = (req,res) => {
-    console.log(req.user)
     if(req.file) {
         req.body.image = `https://curiocorner.s3.us-east-2.amazonaws.com/${req.file.originalname}_${req.user.username}`;
     }

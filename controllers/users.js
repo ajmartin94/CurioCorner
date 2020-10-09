@@ -17,7 +17,6 @@ const renderProfile = (req, res) => {
         ]
     })
     .then(profileUser => {
-        console.log(profileUser)
         if(req.user) {
             Users.findByPk(req.user.id)
             .then( viewingUser => {
@@ -61,7 +60,6 @@ const updateProfile = (req, res) => {
         returning: true
     })
     .catch(err => {
-        console.log(`err: ${err}`)
         if(err.errors[0].message === "username must be unique") {
             res.redirect('/users/profile/edit?valid=0')
         }
