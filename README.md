@@ -11,6 +11,10 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Bootstrap, TinyMCE, AWS S3, Multer
 
 
+## Final Product
+!['CurioCorner Home page'](https://i.imgur.com/sxKzxsU.png)
+- **Site Link:** https://curiocorner.herokuapp.com/
+
 ## User Stories
 - As a user, I want to create a secure account so that I can post my projects. 
 - As a user, I want to create a secure account so that I can interact with others' projects. 
@@ -54,6 +58,7 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Bootstrap (or similar) CSS framework styling - *Complete*
 - CSS transitions for stylish menus - *Future possibility*
 - Sort projects by category and/or geotag - *Complete*
+- Upload muliple images for one post - *Future possibility*
 
 ### Extra Functions Incorporated
 - TinyMCE rich text editor for post content
@@ -71,3 +76,7 @@ A community app designed to share hobbies and DIY projects. App will be made usi
 - Heroku server issues caused some sweating
 - User authentication mixed with routes that didn't need authentication
 - Keeping intent of the user in mind when redirecting for login
+
+## Contribute
+- **Source Code:**https://github.com/ajmartin94/CurioCorner
+- **Issue Tracker:** https://github.com/ajmartin94/CurioCorner/issues
